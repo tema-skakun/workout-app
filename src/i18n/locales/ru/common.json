@@ -1,0 +1,58 @@
+{
+  "appTitle": "Workout App",
+  "nav": {
+    "workouts": "Тренировки",
+    "create": "Создать",
+    "logout": "Выйти",
+    "login": "Войти",
+    "register": "Регистрация"
+  },
+  "home": {
+    "welcome": "Добро пожаловать в Workout App",
+    "ctaLogin": "Войти",
+    "ctaRegister": "Зарегистрироваться"
+  },
+  "auth": {
+    "email": "Email",
+    "password": "Пароль",
+    "login": "Войти",
+    "register": "Зарегистрироваться",
+    "invalid": "Неверный email или пароль",
+    "failedRegister": "Регистрация не удалась"
+  },
+  "workouts": {
+    "your": "Ваши тренировки",
+    "create": "Создать тренировку",
+    "edit": "Редактировать",
+    "delete": "Удалить",
+    "name": "Название тренировки",
+    "addExercise": "Добавить упражнение",
+    "save": "Сохранить",
+    "createBtn": "Создать",
+    "errors": {
+      "form": "Исправьте ошибки в форме",
+      "name": "Название не может быть пустым",
+      "exercise": "Название упражнения не может быть пустым"
+    }
+  },
+  "timer": {
+    "start": "Старт",
+    "pause": "Пауза",
+    "resume": "Продолжить",
+    "warmup": "Разминка",
+    "exercise": "Нагрузка",
+    "rest": "Отдых",
+    "restBetweenRounds": "Отдых между раундами",
+    "done": "Завершено",
+    "next": "Далее",
+    "justDoIt": "Просто сделай это!"
+  },
+  "fields": {
+    "warmupTime": "Время разминки",
+    "exerciseTime": "Время нагрузки",
+    "restTime": "Отдых",
+    "rounds": "Раунды",
+    "restBetweenRounds": "Отдых между раундами",
+    "minHint": "Минимум {{min}}"
+  }
+}

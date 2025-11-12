@@ -1,0 +1,58 @@
+{
+  "appTitle": "Workout App",
+  "nav": {
+    "workouts": "Workouts",
+    "create": "Create",
+    "logout": "Logout",
+    "login": "Login",
+    "register": "Register"
+  },
+  "home": {
+    "welcome": "Welcome to Workout App",
+    "ctaLogin": "Login",
+    "ctaRegister": "Register"
+  },
+  "auth": {
+    "email": "Email",
+    "password": "Password",
+    "login": "Login",
+    "register": "Register",
+    "invalid": "Invalid email or password",
+    "failedRegister": "Registration failed"
+  },
+  "workouts": {
+    "your": "Your Workouts",
+    "create": "Create workout",
+    "edit": "Edit",
+    "delete": "Delete",
+    "name": "Workout name",
+    "addExercise": "Add exercise",
+    "save": "Save",
+    "createBtn": "Create",
+    "errors": {
+      "form": "Please correct the errors",
+      "name": "Workout name cannot be empty",
+      "exercise": "Exercise name cannot be empty"
+    }
+  },
+  "timer": {
+    "start": "Start",
+    "pause": "Pause",
+    "resume": "Resume",
+    "warmup": "Warmup",
+    "exercise": "Exercise",
+    "rest": "Rest",
+    "restBetweenRounds": "Rest between rounds",
+    "done": "Done",
+    "next": "Next",
+    "justDoIt": "Just do it!"
+  },
+  "fields": {
+    "warmupTime": "Warmup time",
+    "exerciseTime": "Exercise time",
+    "restTime": "Rest",
+    "rounds": "Rounds",
+    "restBetweenRounds": "Rest between rounds",
+    "minHint": "Min {{min}}"
+  }
+}

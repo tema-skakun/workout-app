@@ -1,0 +1,72 @@
+:root {
+    color-scheme: light dark;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif;
+}
+
+header, footer {
+    background: #f8f9fa;
+    border-color: #91badb;
+}
+
+header {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 12px;
+    border-bottom: 1px solid #91badb;
+}
+
+footer {
+    padding: 12px;
+    border-top: 1px solid #91badb;
+    text-align: center;
+}
+
+button {
+    cursor: pointer;
+}
+
+nav {
+    display: flex;
+    gap: 8px;
+}
+
+main {
+    padding: 16px;
+}
+
+.input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.btn {
+    height: 46px;
+    padding: 8px 14px;
+    border: 0;
+    border-radius: 6px;
+    background: #0070f3;
+    color: #fff;
+}
+
+.btn.secondary {
+    background: #6c757d;
+}
+
+.btn:disabled {
+    opacity: .6;
+}
+
+.container {
+    max-width: 840px;
+    margin: 0 auto;
+}
