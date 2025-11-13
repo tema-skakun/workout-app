@@ -7,10 +7,11 @@ import './styles/global.css'
 import { AuthProvider } from './auth/AuthContext';
 import { BrowserRouter } from 'react-router-dom';
 
+const basename = import.meta.env.BASE_URL || '/';
 
 createRoot(document.getElementById('root')!).render(
 	<StrictMode>
-		<BrowserRouter>
+		<BrowserRouter basename={basename}>
 			<AuthProvider>
 				<App/>
 			</AuthProvider>
