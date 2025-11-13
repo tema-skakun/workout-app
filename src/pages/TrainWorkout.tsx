@@ -4,10 +4,11 @@ import * as repo from '@/repositories/workoutsRepo';
 import type {Workout} from '@/domain/types';
 import {useTranslation} from 'react-i18next';
 
+const baseUrl = import.meta.env.BASE_URL;
 const sounds = {
-	whistle: '/sounds/whistle.mp3',
-	ticking: '/sounds/ticking.mp3',
-	gong: '/sounds/gong.mp3'
+	whistle: `${baseUrl}sounds/whistle.mp3`,
+	ticking: `${baseUrl}sounds/ticking.mp3`,
+	gong: `${baseUrl}sounds/gong.mp3`
 };
 
 function play(url: string) {
