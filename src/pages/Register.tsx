@@ -3,6 +3,7 @@ import {useAuth} from '@/auth/AuthContext';
 import {useNavigate} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
 
+const basename = import.meta.env.BASE_URL ? '/workout-app/' : '/';
 
 export default function Register() {
 	const {t} = useTranslation();
@@ -11,7 +12,6 @@ export default function Register() {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [error, setError] = useState('');
-
 
 	const onSubmit = async (e: FormEvent) => {
 		e.preventDefault();
@@ -23,18 +23,26 @@ export default function Register() {
 		nav('/login');
 	};
 
-
 	return (
-		<form onSubmit={onSubmit} style={{maxWidth: 360}}>
-			<h2>{t('nav.register')}</h2>
-			{error && <p style={{color: 'red'}}>{error}</p>}
-			<div style={{display: 'grid', gap: 8}}>
-				<input className="input" type="email" placeholder={t('auth.email')!} value={email}
-							 onChange={e => setEmail(e.target.value)} required/>
-				<input className="input" type="password" placeholder={t('auth.password')!} value={password}
-							 onChange={e => setPassword(e.target.value)} required/>
-				<button className="btn" type="submit">{t('auth.register')}</button>
-			</div>
-		</form>
+		<div style={{maxWidth: 360, margin: '0 auto'}}>
+			<button
+				className="btn secondary"
+				onClick={() => nav(basename)}
+				style={{marginBottom: 16, display: 'flex', alignItems: 'center', gap: 8}}
+			>
+				←
+			</button>
+			<form onSubmit={onSubmit}>
+				<h2>{t('nav.register')}</h2>
+				{error && <p style={{color: 'red'}}>{error}</p>}
+				<div style={{display: 'grid', gap: 8}}>
+					<input className="input" type="email" placeholder={t('auth.email')!} value={email}
+								 onChange={e => setEmail(e.target.value)} required/>
+					<input className="input" type="password" placeholder={t('auth.password')!} value={password}
+								 onChange={e => setPassword(e.target.value)} required/>
+					<button className="btn" type="submit">{t('auth.register')}</button>
+				</div>
+			</form>
+		</div>
 	);
 }

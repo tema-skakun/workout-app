@@ -26,7 +26,7 @@ export default function Workouts() {
 		<div>
 			<div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16}}>
 				<h2 style={{margin: 0}}>{t('workouts.your')}</h2>
-				<Link to="/create-workout" className="btn">{t('workouts.create')}</Link>
+				<Link to="/create-workout" className="btn">+</Link>
 			</div>
 			{error && <p style={{color: 'red'}}>{error}</p>}
 			<ul style={{listStyle: 'none', padding: 0, margin: 0}}>

@@ -12,6 +12,8 @@ import {useAuth} from '@/auth/AuthContext';
 import {ReactNode} from 'react';
 import './App.css';
 
+const basename = import.meta.env.BASE_URL ? '/workout-app/' : '/';
+
 function PrivateRoute({children}: { children: ReactNode }) {
 	const {user} = useAuth();
 	if (!user) return <Navigate to="/login" replace/>;
@@ -24,7 +26,7 @@ export default function App() {
 			<Header/>
 			<main className="container" style={{flex: 1}}>
 				<Routes>
-					<Route path="/" element={<Home/>}/>
+					<Route path={basename} element={<Home/>}/>
 					<Route path="/login" element={<Login/>}/>
 					<Route path="/register" element={<Register/>}/>
 
