@@ -9,15 +9,14 @@ import CreateWorkout from '@/pages/CreateWorkout';
 import EditWorkout from '@/pages/EditWorkout';
 import TrainWorkout from '@/pages/TrainWorkout';
 import {useAuth} from '@/auth/AuthContext';
+import {ReactNode} from 'react';
 import './App.css';
 
-
-function PrivateRoute({children}: { children: Element }) {
+function PrivateRoute({children}: { children: ReactNode }) {
 	const {user} = useAuth();
 	if (!user) return <Navigate to="/login" replace/>;
-	return children;
+	return <>{children}</>;
 }
-
 
 export default function App() {
 	return (
@@ -29,11 +28,38 @@ export default function App() {
 					<Route path="/login" element={<Login/>}/>
 					<Route path="/register" element={<Register/>}/>
 
-
-					<Route path="/workouts" element={<PrivateRoute><Workouts/></PrivateRoute>}/>
-					<Route path="/create-workout" element={<PrivateRoute><CreateWorkout/></PrivateRoute>}/>
-					<Route path="/edit-workout/:id" element={<PrivateRoute><EditWorkout/></PrivateRoute>}/>
-					<Route path="/train-workout/:id" element={<PrivateRoute><TrainWorkout/></PrivateRoute>}/>
+					<Route
+						path="/workouts"
+						element={
+							<PrivateRoute>
+								<Workouts/>
+							</PrivateRoute>
+						}
+					/>
+					<Route
+						path="/create-workout"
+						element={
+							<PrivateRoute>
+								<CreateWorkout/>
+							</PrivateRoute>
+						}
+					/>
+					<Route
+						path="/edit-workout/:id"
+						element={
+							<PrivateRoute>
+								<EditWorkout/>
+							</PrivateRoute>
+						}
+					/>
+					<Route
+						path="/train-workout/:id"
+						element={
+							<PrivateRoute>
+								<TrainWorkout/>
+							</PrivateRoute>
+						}
+					/>
 				</Routes>
 			</main>
 			<Footer/>
