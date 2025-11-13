@@ -22,7 +22,7 @@
   },
   "workouts": {
     "your": "Your Workouts",
-    "create": "Create workout",
+    "create": "+",
     "edit": "Edit",
     "delete": "Delete",
     "name": "Workout name",
