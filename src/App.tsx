@@ -20,9 +20,9 @@ function PrivateRoute({children}: { children: ReactNode }) {
 
 export default function App() {
 	return (
-		<>
+		<div style={{display: 'flex', flexDirection: 'column', height: 'calc(100dvh - 63px)'}}>
 			<Header/>
-			<main className="container">
+			<main className="container" style={{flex: 1}}>
 				<Routes>
 					<Route path="/" element={<Home/>}/>
 					<Route path="/login" element={<Login/>}/>
@@ -63,6 +63,6 @@ export default function App() {
 				</Routes>
 			</main>
 			<Footer/>
-		</>
+		</div>
 	);
 }
