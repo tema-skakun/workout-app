@@ -7,7 +7,7 @@ import './styles/global.css'
 import { AuthProvider } from './auth/AuthContext';
 import { BrowserRouter } from 'react-router-dom';
 
-const basename = import.meta.env.BASE_URL || '/';
+const basename = import.meta.env.PROD ? '/workout-app' : '/';
 
 createRoot(document.getElementById('root')!).render(
 	<StrictMode>
