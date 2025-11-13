@@ -1,73 +1,182 @@
-# React + TypeScript + Vite
+# Workout App 🏋️
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+#### Приложение для создания и выполнения интервальных тренировок с таймером и звуковыми оповещениями.
 
-Currently, two official plugins are available:
+# 🚀 Функциональности
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+  -  🔐 Аутентификация - регистрация и вход
 
-## React Compiler
+  -  📝 Создание тренировок - настройка интервалов, упражнений и раундов
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+  -  ⏱️ Умный таймер - автоматическое переключение между этапами тренировки
 
-## Expanding the ESLint configuration
+  -  🔊 Звуковые оповещения - сигналы для начала/окончания этапов
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+  -  🌍 Многоязычность - русский и английский языки
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+  -  💾 Оффлайн-работа - данные хранятся локально в IndexedDB
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+  -  📱 Адаптивный дизайн - работает на всех устройствах
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# 🛠️ Технологии
+
+  -  Frontend: React 18, TypeScript
+
+  -  Build Tool: Vite
+
+  -  Routing: React Router DOM
+
+  -  State Management: React Context + useState
+
+  -  Database: Dexie (IndexedDB)
+
+  -  Internationalization: i18next
+
+  -  Styling: CSS Modules
+
+  -  Deployment: GitHub Pages
+
+  -  Linting: ESLint + TypeScript ESLint
+
+# 📦 Установка и запуск
+### Предварительные требования
+
+  -  Node.js 18+
+
+  -  npm или yarn
+
+### Установка
+```bash
+# Клонирование репозитория
+git clone <your-repo-url>
+cd workout-app
+
+# Установка зависимостей
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Разработка
+```bash
+# Запуск в режиме разработки
+npm run dev
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Приложение будет доступно по http://localhost:5173
 ```
+
+### Сборка
+```bash
+# Сборка для production
+npm run build
+
+# Превью сборки
+npm run preview
+```
+
+### Деплой
+```bash
+# Деплой на GitHub Pages
+npm run deploy
+```
+
+# 🏗️ Структура проекта
+```text
+src/
+├── auth/              # Контекст аутентификации
+├── components/        # React компоненты
+├── db/                # IndexedDB схема и подключение
+├── domain/            # Типы TypeScript
+├── i18n/              # Локализация
+├── pages/             # Страницы приложения
+├── repositories/      # Работа с данными
+├── styles/            # Глобальные стили
+├── utils/             # Вспомогательные функции
+└── main.tsx           # Точка входа
+```
+
+# 🎯 Основные компоненты
+### Страницы
+
+  -  Home - главная страница
+
+  -  Login/Register - аутентификация
+
+  -  Workouts - список тренировок
+
+  -  CreateWorkout - создание тренировки
+
+  -  EditWorkout - редактирование тренировки
+
+  -  TrainWorkout - выполнение тренировки с таймером
+
+### Типы тренировок
+
+  -  Разминка - подготовительный этап
+
+  -  Упражнения - основные нагрузки
+
+  -  Отдых - перерыв между упражнениями
+
+  -  Отдых между раундами - перерыв между циклами
+
+# ⚙️ Конфигурация
+### Environment Variables
+
+Приложение использует Vite environment variables:
+
+  -  import.meta.env.PROD - для определения production режима
+
+  -  import.meta.env.DEV - для development режима
+
+### Настройки Vite
+
+  -  Алиас @ для пути src/
+
+  -  Порт разработки: 5173
+
+  -  Base path: /workout-app/ для GitHub Pages
+
+# 🌍 Локализация
+
+Поддерживаемые языки:
+
+    🇷🇺 Русский (по умолчанию)
+
+    🇺🇸 Английский
+
+Файлы локализации находятся в src/i18n/locales/
+
+# 💾 База данных
+
+Используется IndexedDB через библиотеку Dexie:
+
+  -  users - пользователи (email, хеш пароля)
+
+  -  workouts - тренировки пользователей
+
+# 🎵 Звуковые эффекты
+
+Таймер использует звуковые файлы:
+
+  -  whistle.mp3 - начало упражнения
+
+  -  ticking.mp3 - обратный отсчет
+
+  -  gong.mp3 - окончание этапа
+
+# 🔒 Безопасность
+
+  -  Пароли хэшируются с использованием PBKDF2
+
+  -  Используется случайная соль для каждого пользователя
+
+  -  Аутентификация через JWT-подобную систему
+
+# 🚀 Деплой
+
+Приложение настроено для деплоя на GitHub Pages:
+
+  -  Автоматическая настройка base path
+
+  -  SPA routing через HashRouter
+
+  -  Статическая сборка
