@@ -50,12 +50,15 @@ main {
 }
 
 .btn {
-    height: 46px;
+    height: 36px;
     padding: 8px 14px;
     border: 0;
     border-radius: 6px;
     background: #0070f3;
     color: #fff;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
 }
 
 .btn.secondary {
@@ -64,6 +67,10 @@ main {
 
 .btn:disabled {
     opacity: .6;
+}
+
+.btn:hover {
+    color: #fff;
 }
 
 .container {
