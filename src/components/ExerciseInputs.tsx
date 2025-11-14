@@ -1,5 +1,5 @@
-import React from 'react';
 import {Plus} from '@/svg/plus';
+import {useTranslation} from "react-i18next";
 
 
 export default function ExerciseInputs({
@@ -13,8 +13,13 @@ export default function ExerciseInputs({
 	onChange: (index: number, value: string) => void;
 	onAdd: () => void;
 }) {
+	const {t} = useTranslation();
+
 	return (
-		<div>
+		<div style={{marginBottom: '16px'}}>
+			<label style={{display: 'block', marginBottom: '8px', fontWeight: '600'}}>
+				{t('workouts.exercises')}
+			</label>
 			{exercises.map((exercise, index) => (
 				<div key={index} style={{marginBottom: 8}}>
 					<input
@@ -22,8 +27,9 @@ export default function ExerciseInputs({
 						type="text"
 						value={exercise.name}
 						onChange={(e) => onChange(index, e.target.value)}
-						placeholder="Exercise Name"
-						autoFocus={autoFocus && index === 0}
+						placeholder={`${t('workouts.exercise')} ${index + 1}`}
+						autoFocus
+						style={{flex: 1}}
 					/>
 				</div>
 			))}
