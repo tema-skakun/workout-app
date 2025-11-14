@@ -28,6 +28,7 @@ html, body {
 
 #root {
     min-height: 100dvh;
+    min-width: 100dvw;
     display: flex;
     flex-direction: column;
 }
@@ -127,8 +128,8 @@ footer {
 main {
     flex: 1;
     padding: 16px;
-    max-width: 400px;
-    margin: 0 auto;
+    /*max-width: 400px;*/
+    /*margin: 0 auto;*/
     width: 100%;
 }
 
