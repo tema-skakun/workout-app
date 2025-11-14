@@ -48,7 +48,7 @@
 ### Установка
 ```bash
 # Клонирование репозитория
-git clone <your-repo-url>
+git clone git@github.com:tema-skakun/workout-app.git
 cd workout-app
 
 # Установка зависимостей
@@ -59,9 +59,9 @@ npm install
 ```bash
 # Запуск в режиме разработки
 npm run dev
-
-# Приложение будет доступно по http://localhost:5173
 ```
+
+ Приложение будет доступно по адресу http://localhost:5173
 
 ### Сборка
 ```bash
@@ -108,7 +108,7 @@ src/
 
   -  TrainWorkout - выполнение тренировки с таймером
 
-### Типы тренировок
+### Тренировка может входить:
 
   -  Разминка - подготовительный этап
 
@@ -159,7 +159,7 @@ src/
 
   -  whistle.mp3 - начало упражнения
 
-  -  ticking.mp3 - обратный отсчет
+  -  ticking.mp3 - последние секунды таймера
 
   -  gong.mp3 - окончание этапа
 
@@ -180,3 +180,5 @@ src/
   -  SPA routing через HashRouter
 
   -  Статическая сборка
+
+  -  Доступно по [ссылке](https://tema-skakun.github.io/workout-app/)

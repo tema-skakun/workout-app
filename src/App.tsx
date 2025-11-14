@@ -12,7 +12,7 @@ import {ReactNode} from 'react';
 import './App.css';
 import CreateWorkout from "./pages/CreateWorkout";
 
-const basename = import.meta.env.BASE_URL ? '/workout-app/' : '/';
+const basename = import.meta.env.PROD ? '/' : '/workout-app/';
 
 function PrivateRoute({children}: { children: ReactNode }) {
 	const {user} = useAuth();
