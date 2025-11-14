@@ -4,7 +4,8 @@ import {useNavigate} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
 import {Arrow} from '@/svg/arrow';
 
-const basename = import.meta.env.BASE_URL ? '/workout-app/' : '/';
+// const basename = import.meta.env.BASE_URL ? '/workout-app/' : '/';
+const basename = import.meta.env.PROD ? '/' : '/workout-app/';
 
 export default function Register() {
 	const {t} = useTranslation();
