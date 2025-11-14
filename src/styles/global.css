@@ -97,6 +97,9 @@ html, body {
 
 /* Хедер */
 header {
+    display: flex;
+    gap: 12px;
+    align-items: center;
     background: var(--surface);
     padding: 12px 16px;
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
@@ -109,6 +112,15 @@ header h3 {
     margin: 0;
     color: var(--primary);
     font-weight: 700;
+}
+
+
+footer {
+    padding: 12px;
+    border-top: 1px solid #91badb;
+    text-align: center;
+    background: var(--surface);
+    z-index: 100;
 }
 
 /* Основной контент */

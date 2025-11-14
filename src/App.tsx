@@ -9,8 +9,8 @@ import EditWorkout from '@/pages/EditWorkout';
 import TrainWorkout from '@/pages/TrainWorkout';
 import {useAuth} from '@/auth/AuthContext';
 import {ReactNode} from 'react';
-import QuickCreate from '@/components/workout/QuickCreate';
 import './App.css';
+import CreateWorkout from "./pages/CreateWorkout";
 
 const basename = import.meta.env.BASE_URL ? '/workout-app/' : '/';
 
@@ -22,9 +22,9 @@ function PrivateRoute({children}: { children: ReactNode }) {
 
 export default function App() {
 	return (
-		<div style={{display: 'flex', flexDirection: 'column', minHeight: '100dvh'}}>
+		<div style={{display: 'flex', flexDirection: 'column', height: 'calc(100dvh - 63px)'}}>
 			<Header/>
-			<main style={{flex: 1}}>
+			<main className="container" style={{flex: 1}}>
 				<Routes>
 					<Route path={basename} element={<Home/>}/>
 					<Route path="/login" element={<Login/>}/>
@@ -42,7 +42,7 @@ export default function App() {
 						path="/create-workout"
 						element={
 							<PrivateRoute>
-								<QuickCreate/>
+								<CreateWorkout/>
 							</PrivateRoute>
 						}
 					/>
