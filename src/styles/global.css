@@ -1,87 +1,180 @@
 :root {
-    color-scheme: light dark;
-}
-
-html, body {
-    height: 100%;
-}
-
-#root {
-    min-height: 100dvh;
+    --primary: #6366f1;
+    --primary-dark: #4f46e5;
+    --bg: #f0f0f3;
+    --surface: #f0f0f3;
+    --shadow: 8px 8px 16px #d1d1d1, -8px -8px 16px #ffffff;
+    --inner-shadow: inset 4px 4px 8px #d1d1d1, inset -4px -4px 8px #ffffff;
+    --text: #2d3748;
+    --text-light: #718096;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --border-radius: 16px;
 }
 
 * {
     box-sizing: border-box;
 }
 
-body {
+html, body {
+    height: 100%;
     margin: 0;
-    font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif;
+    padding: 0;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
 }
 
-header, footer {
-    background: #f8f9fa;
-    border-color: #91badb;
-}
-
-header {
+#root {
+    min-height: 100dvh;
     display: flex;
-    gap: 12px;
-    align-items: center;
-    padding: 12px;
-    border-bottom: 1px solid #91badb;
+    flex-direction: column;
 }
 
-footer {
-    padding: 12px;
-    border-top: 1px solid #91badb;
-    text-align: center;
-}
-
-button {
+/* Неоморфные кнопки */
+.btn {
+    height: 44px;
+    padding: 0 20px;
+    border: none;
+    border-radius: var(--border-radius);
+    background: var(--surface);
+    box-shadow: var(--shadow);
+    color: var(--text);
+    font-weight: 600;
+    font-size: 14px;
     cursor: pointer;
-}
-
-nav {
-    display: flex;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     gap: 8px;
 }
 
-main {
-    padding: 16px;
+.btn:active {
+    box-shadow: var(--inner-shadow);
 }
 
+.btn.primary {
+    background: var(--primary);
+    color: white;
+    box-shadow: 8px 8px 16px #d1d1d1, -8px -8px 16px #ffffff,
+    inset 0 0 0 0 var(--primary-dark);
+}
+
+.btn.primary:active {
+    box-shadow: inset 4px 4px 8px var(--primary-dark),
+    inset -4px -4px 8px var(--primary);
+}
+
+/* Неоморфные инпуты */
 .input {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
+    width: 100%;
+    height: 48px;
+    padding: 0 16px;
+    border: none;
+    border-radius: var(--border-radius);
+    background: var(--surface);
+    box-shadow: var(--inner-shadow);
+    font-size: 16px;
+    color: var(--text);
+    transition: all 0.2s ease;
 }
 
-.btn {
-    height: 36px;
-    padding: 8px 14px;
-    border: 0;
-    border-radius: 6px;
-    background: #0070f3;
-    color: #fff;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
+.input:focus {
+    outline: none;
+    box-shadow: var(--inner-shadow), 0 0 0 2px var(--primary);
 }
 
-.btn.secondary {
-    background: #6c757d;
+/* Карточки */
+.card {
+    background: var(--surface);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 20px;
+    margin-bottom: 16px;
 }
 
-.btn:disabled {
-    opacity: .6;
+/* Хедер */
+header {
+    background: var(--surface);
+    padding: 12px 16px;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
-.btn:hover {
-    color: #fff;
+header h3 {
+    margin: 0;
+    color: var(--primary);
+    font-weight: 700;
 }
 
-.container {
-    max-width: 840px;
+/* Основной контент */
+main {
+    flex: 1;
+    padding: 16px;
+    max-width: 400px;
     margin: 0 auto;
+    width: 100%;
+}
+
+/* Навигация */
+.nav {
+    display: flex;
+    gap: 8px;
+    margin-left: auto;
+}
+
+/* Списки */
+.workout-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.workout-item {
+    background: var(--surface);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 16px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.2s ease;
+}
+
+.workout-item:active {
+    box-shadow: var(--inner-shadow);
+}
+
+/* Таймер */
+.timer-display {
+    font-size: 64px;
+    font-weight: 700;
+    text-align: center;
+    margin: 20px 0;
+    color: var(--primary);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.stage-label {
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+    margin: 16px 0;
+    color: var(--text);
+}
+
+/* Адаптивность */
+@media (max-width: 480px) {
+    main {
+        padding: 12px;
+    }
+
+    .timer-display {
+        font-size: 56px;
+    }
 }

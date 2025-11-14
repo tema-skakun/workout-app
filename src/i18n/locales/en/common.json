@@ -33,7 +33,16 @@
       "form": "Please correct the errors",
       "name": "Workout name cannot be empty",
       "exercise": "Exercise name cannot be empty"
-    }
+    },
+    "quickCreate": "Quick Create",
+    "level": "Difficulty Level",
+    "levels": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced"
+    },
+    "exercises": "Exercises",
+    "exercise": "Exercise"
   },
   "timer": {
     "start": "Start",
