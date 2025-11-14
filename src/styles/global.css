@@ -34,8 +34,8 @@ html, body {
 
 /* Неоморфные кнопки */
 .btn {
-    height: 44px;
-    padding: 0 20px;
+    height: 35px;
+    padding: 10px;
     border: none;
     border-radius: var(--border-radius);
     background: var(--surface);

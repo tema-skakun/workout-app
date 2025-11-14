@@ -3,6 +3,8 @@ import {useNavigate, useParams} from 'react-router-dom';
 import * as repo from '@/repositories/workoutsRepo';
 import type {Workout} from '@/domain/types';
 import {useTranslation} from 'react-i18next';
+import { Pause } from '@/svg/pause';
+import { Play } from '@/svg/play';
 
 const baseUrl = import.meta.env.BASE_URL;
 const sounds = {
@@ -137,7 +139,7 @@ export default function TrainWorkout() {
 
 	if (!workout) return <p>Loading...</p>;
 
-	const btnText = !isActive ? t('timer.start') : isPaused ? t('timer.resume') : t('timer.pause');
+	// const btnText = !isActive ? t('timer.start') : isPaused ? t('timer.resume') : t('timer.pause');
 	const mm = Math.floor(timeLeft / 60000);
 	const ss = String(Math.floor((timeLeft % 60000) / 1000)).padStart(2, '0');
 
@@ -146,14 +148,17 @@ export default function TrainWorkout() {
 			<h3>{workout.name}</h3>
 			<h1>{stageLabel}</h1>
 			<div style={{fontSize: 48}}>{mm}:{ss}</div>
-			<button className="btn" onClick={handleStartPause}>{btnText}</button>
+			<button className="btn" onClick={handleStartPause}>
+				{/*{btnText}*/}
+				{/*{!isActive ? <Play/> : <Pause/>}*/}
+				{!isActive ? <Play/> : isPaused ? <Play/> : <Pause/>}
+			</button>
 			<h2>
 				{(stage === 'rest' || stage === 'restBetweenRounds' || stage === 'warmup')
 					? `${t('timer.next')}: ${nextExercise}`
 					: t('timer.justDoIt')
 				}
 			</h2>
-
 		</div>
 	);
 }

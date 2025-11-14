@@ -2,6 +2,7 @@ import {FormEvent, useState} from 'react';
 import {useAuth} from '@/auth/AuthContext';
 import {useNavigate} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
+import {Arrow} from '@/svg/arrow';
 
 const basename = import.meta.env.BASE_URL ? '/workout-app/' : '/';
 
@@ -30,7 +31,7 @@ export default function Login() {
 				onClick={() => nav(basename)}
 				style={{marginBottom: 16, display: 'flex', alignItems: 'center', gap: 8}}
 			>
-				←
+				<Arrow/>
 			</button>
 			<form onSubmit={onSubmit}>
 				<h2>{t('nav.login')}</h2>

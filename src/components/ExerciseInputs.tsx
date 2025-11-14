@@ -1,4 +1,5 @@
 import React from 'react';
+import {Plus} from '@/svg/plus';
 
 
 export default function ExerciseInputs({
@@ -26,7 +27,9 @@ export default function ExerciseInputs({
 					/>
 				</div>
 			))}
-			<button className="btn" onClick={onAdd}>+</button>
+			<button className="btn" onClick={onAdd}>
+				<Plus/>
+			</button>
 		</div>
 	);
 }

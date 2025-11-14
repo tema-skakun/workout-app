@@ -4,6 +4,9 @@ import * as repo from '@/repositories/workoutsRepo';
 import type {Workout} from '@/domain/types';
 import {Link, useNavigate} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
+import {Edit} from '@/svg/edit';
+import {Delete} from '@/svg/delete';
+import {Plus} from '@/svg/plus';
 
 export default function Workouts() {
 	const {t} = useTranslation();
@@ -26,7 +29,9 @@ export default function Workouts() {
 		<div>
 			<div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16}}>
 				<h2 style={{margin: 0}}>{t('workouts.your')}</h2>
-				<Link to="/create-workout" className="btn">+</Link>
+				<Link to="/create-workout" className="btn">
+					<Plus/>
+				</Link>
 			</div>
 			{error && <p style={{color: 'red'}}>{error}</p>}
 			<ul style={{listStyle: 'none', padding: 0, margin: 0}}>
@@ -41,8 +46,12 @@ export default function Workouts() {
 						borderRadius: 12
 					}}>
 						<Link to={`/train-workout/${w.id}`} style={{flex: 1}}>{w.name}</Link>
-						<button className="btn" onClick={() => nav(`/edit-workout/${w.id}`)}>{t('workouts.edit')}</button>
-						<button className="btn secondary" onClick={() => onDelete(w.id)}>{t('workouts.delete')}</button>
+						<button className="btn" onClick={() => nav(`/edit-workout/${w.id}`)}>
+							<Edit/>
+						</button>
+						<button className="btn secondary" onClick={() => onDelete(w.id)}>
+							<Delete/>
+						</button>
 					</li>
 				))}
 			</ul>
