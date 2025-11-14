@@ -28,12 +28,13 @@ export default function Workouts() {
 	return (
 		<div>
 			<div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16}}>
-				<h2 style={{margin: 0}}>{t('workouts.your')}</h2>
+				<h2 style={{margin: 0}}>{t('workouts.my')}</h2>
 				<Link to="/create-workout" className="btn">
 					<Plus/>
 				</Link>
 			</div>
 			{error && <p style={{color: 'red'}}>{error}</p>}
+			{items.length === 0 && <p>{t('workouts.dontHave')}</p>}
 			<ul style={{listStyle: 'none', padding: 0, margin: 0}}>
 				{items.map(w => (
 					<li key={w.id} style={{

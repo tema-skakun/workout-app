@@ -1,7 +1,7 @@
 {
   "appTitle": "Workout App",
   "nav": {
-    "workouts": "Workouts",
+    "workouts": "My Workouts",
     "create": "Create",
     "logout": "Logout",
     "login": "Login",
@@ -21,7 +21,8 @@
     "failedRegister": "Registration failed"
   },
   "workouts": {
-    "your": "Your Workouts",
+    "my": "My Workouts",
+    "dontHave": "You don't have any workouts yet, create one by clicking on the button +",
     "create": "Create workout",
     "edit": "Edit",
     "delete": "Delete",
