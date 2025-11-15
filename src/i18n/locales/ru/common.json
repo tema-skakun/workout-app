@@ -59,7 +59,8 @@
     "restBetweenRounds": "Отдых между раундами",
     "done": "Завершено",
     "next": "Далее",
-    "justDoIt": "Просто сделай это \uD83D\uDCAA"
+    "justDoIt": "Просто сделай это \uD83D\uDCAA",
+    "wellDone": "Отлично сработано \uD83D\uDC4D"
   },
   "fields": {
     "warmupTime": "Время разминки",

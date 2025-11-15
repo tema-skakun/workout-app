@@ -3,8 +3,8 @@ import {useNavigate, useParams} from 'react-router-dom';
 import * as repo from '@/repositories/workoutsRepo';
 import type {Workout} from '@/domain/types';
 import {useTranslation} from 'react-i18next';
-import { Pause } from '@/svg/pause';
-import { Play } from '@/svg/play';
+import {Pause} from '@/svg/pause';
+import {Play} from '@/svg/play';
 
 const baseUrl = import.meta.env.BASE_URL;
 const sounds = {
@@ -139,26 +139,63 @@ export default function TrainWorkout() {
 
 	if (!workout) return <p>Loading...</p>;
 
-	// const btnText = !isActive ? t('timer.start') : isPaused ? t('timer.resume') : t('timer.pause');
-	const mm = Math.floor(timeLeft / 60000);
+	const mm = String(Math.floor(timeLeft / 60000)).padStart(2, '0');
 	const ss = String(Math.floor((timeLeft % 60000) / 1000)).padStart(2, '0');
 
+	const getStageColor = () => {
+		switch (stage) {
+			case 'warmup':
+				return 'var(--warning)';
+			case 'exercise':
+				return 'var(--primary)';
+			case 'rest':
+				return 'var(--success)';
+			case 'restBetweenRounds':
+				return 'var(--success)';
+			case 'complete':
+				return 'var(--danger)';
+			default:
+				return 'var(--text-light)';
+		}
+	}
+
 	return (
-		<div style={{display: 'grid', justifyItems: 'center', gap: 16}}>
-			<h3>{workout.name}</h3>
-			<h1>{stageLabel}</h1>
-			<div style={{fontSize: 48}}>{mm}:{ss}</div>
-			<button className="btn" onClick={handleStartPause}>
-				{/*{btnText}*/}
-				{/*{!isActive ? <Play/> : <Pause/>}*/}
-				{!isActive ? <Play/> : isPaused ? <Play/> : <Pause/>}
+		<div
+			className="card"
+			style={{display: 'grid', justifyItems: 'center'}}
+		>
+			<div
+				style={{color: 'var(--text-light)', fontSize: '1.5rem', fontWeight: 'bold'}}
+			>{workout.name}
+			</div>
+			<div
+				className="stage-label"
+				style={{color: getStageColor()}}
+			>
+				{stageLabel}
+			</div>
+			<div
+				style={{color: getStageColor()}}
+				className="timer-display"
+			>
+				{mm}:{ss}
+			</div>
+			<button className="btn primary" onClick={handleStartPause}>
+				{!isActive
+					? <Play fill='var(--surface)'/>
+					: isPaused
+						? <Play fill='var(--surface)'/>
+						: <Pause fill='var(--surface)'/>
+				}
 			</button>
-			<h2>
+			<div style={{color: 'var(--text-light)', fontSize: '2.5rem', fontWeight: 'bold'}}>
 				{(stage === 'rest' || stage === 'restBetweenRounds' || stage === 'warmup')
 					? `${t('timer.next')}: ${nextExercise}`
-					: t('timer.justDoIt')
+					: stage === 'complete'
+						? t('timer.wellDone')
+						: t('timer.justDoIt')
 				}
-			</h2>
+			</div>
 		</div>
 	);
 }

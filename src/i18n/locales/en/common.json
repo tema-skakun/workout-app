@@ -59,7 +59,8 @@
     "restBetweenRounds": "Rest between rounds",
     "done": "Done",
     "next": "Next",
-    "justDoIt": "Just do it \uD83D\uDCAA"
+    "justDoIt": "Just do it \uD83D\uDCAA",
+    "wellDone": "Well done \uD83D\uDC4D"
   },
   "fields": {
     "warmupTime": "Warmup time",
