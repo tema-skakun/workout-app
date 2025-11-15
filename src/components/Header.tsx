@@ -1,12 +1,13 @@
 import {useAuth} from '@/auth/AuthContext';
 import {useTranslation} from 'react-i18next';
 import Navbar from './Navbar';
+import LanguageSwitcher from "./LanguageSwitcher.tsx";
 
 export default function Header() {
 	const {t} = useTranslation();
 	const {user, logout} = useAuth();
 	return (
-		<header style={{borderBottom: '4px solid #0a4a94'}}>
+		<header style={{borderBottom: '1px solid #0a4a94'}}>
 			<h3 style={{margin: 0, color: 'black'}}>{t('appTitle')}</h3>
 			{user ? (
 				<>
@@ -20,6 +21,7 @@ export default function Header() {
 					</button>
 				</>
 			) : null}
+			<LanguageSwitcher />
 		</header>
 	);
 }

@@ -64,5 +64,9 @@
     "rounds": "Rounds",
     "restBetweenRounds": "Rest between rounds",
     "minHint": "Min {{min}}"
+  },
+  "languages": {
+    "ru": "Russian",
+    "en": "English"
   }
 }

@@ -1,8 +1,8 @@
-import {createContext, useContext, useEffect, useMemo, useState} from 'react';
+import {createContext, ReactNode, useContext, useEffect, useMemo, useState} from 'react';
 import {db} from '@/db';
 import type {User} from '@/domain/types';
 import {hashPassword, randomSalt} from '@/utils/crypto';
-
+import i18n from '@/i18n/i18n';
 
 export type SessionUser = { id: string; email: string } | null;
 
@@ -18,13 +18,23 @@ type Ctx = {
 const AuthContext = createContext<Ctx | undefined>(undefined);
 
 
-export function AuthProvider({children}: { children: React.ReactNode }) {
+export function AuthProvider({children}: { children: ReactNode }) {
 	const [user, setUser] = useState<SessionUser>(null);
 
 
 	useEffect(() => {
 		const raw = localStorage.getItem('auth.user');
-		if (raw) setUser(JSON.parse(raw));
+		if (raw) {
+			const sessionUser = JSON.parse(raw);
+			setUser(sessionUser);
+
+			// Загружаем язык пользователя при инициализации
+			db.users.get(sessionUser.id).then(userData => {
+				if (userData?.language) {
+					i18n.changeLanguage(userData.language);
+				}
+			});
+		}
 	}, []);
 
 
@@ -42,6 +52,12 @@ export function AuthProvider({children}: { children: React.ReactNode }) {
 			const session = {id: found.id, email: found.email};
 			localStorage.setItem('auth.user', JSON.stringify(session));
 			setUser(session);
+
+			// Устанавливаем язык пользователя после логина
+			if (found.language) {
+				i18n.changeLanguage(found.language);
+			}
+
 			return true;
 		},
 		register: async (email, password) => {
@@ -49,7 +65,13 @@ export function AuthProvider({children}: { children: React.ReactNode }) {
 			if (exists) return {ok: false, reason: 'exists'} as const;
 			const salt = randomSalt();
 			const passwordHash = await hashPassword(password, salt);
-			const user: User = {id: crypto.randomUUID(), email, passwordHash, salt, createdAt: Date.now()};
+			const user: User = {
+				id: crypto.randomUUID(),
+				email,
+				passwordHash,
+				salt, createdAt: Date.now(),
+				language: i18n.language // Сохраняем текущий язык при регистрации
+			};
 			await db.users.add(user);
 			return {ok: true} as const;
 		}

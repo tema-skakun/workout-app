@@ -20,4 +20,5 @@ export type User = {
 	passwordHash: string;
 	salt: string;
 	createdAt: number;
+	language: string;
 };
