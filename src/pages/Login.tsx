@@ -3,9 +3,7 @@ import {useAuth} from '@/auth/AuthContext';
 import {useNavigate} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
 import {Arrow} from '@/svg/arrow';
-import LanguageSwitcher from "../components/LanguageSwitcher";
 
-// const basename = import.meta.env.BASE_URL ? '/workout-app/' : '/';
 const basename = import.meta.env.PROD ? '/' : '/workout-app/';
 
 export default function Login() {

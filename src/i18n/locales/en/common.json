@@ -43,7 +43,11 @@
       "advanced": "Advanced"
     },
     "exercises": "Exercises",
-    "exercise": "Exercise"
+    "exercise": "Exercise",
+    "tabs": {
+      "settings": "Time Settings",
+      "exercises": "Exercises"
+    }
   },
   "timer": {
     "start": "Start",
@@ -68,5 +72,10 @@
   "languages": {
     "ru": "Russian",
     "en": "English"
+  },
+  "common": {
+    "next": "Next",
+    "back": "Back",
+    "cancel": "Cancel"
   }
 }
