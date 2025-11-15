@@ -11,5 +11,5 @@ export default defineConfig({
     server: {
         port: 5173
     },
-    base: '/workout-app/'
+    base: process.env.NODE_ENV === 'production' ? '/workout-app/' : '/'
 });

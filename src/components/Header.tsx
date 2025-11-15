@@ -1,7 +1,7 @@
 import {useAuth} from '@/auth/AuthContext';
 import {useTranslation} from 'react-i18next';
 import Navbar from './Navbar';
-import LanguageSwitcher from "./LanguageSwitcher.tsx";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function Header() {
 	const {t} = useTranslation();

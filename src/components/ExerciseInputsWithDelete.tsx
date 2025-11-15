@@ -1,16 +1,18 @@
 import {useTranslation} from "react-i18next";
 
-export const ExerciseInputsWithDelete = ({
-																		exercises,
-																		onChange,
-																		onAdd,
-																		onRemove
-																	}: {
+interface ExerciseInputsWithDeleteProps {
 	exercises: { name: string }[];
 	onChange: (index: number, value: string) => void;
 	onAdd: () => void;
 	onRemove: (index: number) => void;
-}) => {
+}
+
+export const ExerciseInputsWithDelete = ({
+																					 exercises,
+																					 onChange,
+																					 onAdd,
+																					 onRemove
+																				 }: ExerciseInputsWithDeleteProps) => {
 	const {t} = useTranslation();
 
 	return (
@@ -33,6 +35,7 @@ export const ExerciseInputsWithDelete = ({
 						onChange={(e) => onChange(index, e.target.value)}
 						placeholder={`${t('workouts.exercise')} ${index + 1}`}
 						style={{flex: 1}}
+						autoFocus
 					/>
 					{exercises.length > 1 && (
 						<button
@@ -60,5 +63,5 @@ export const ExerciseInputsWithDelete = ({
 				+ {t('workouts.addExercise')}
 			</button>
 		</div>
-	)
-}
+	);
+};
