@@ -12,6 +12,6 @@ export const Plus = ({
 		fill="none"
 		xmlns="http://www.w3.org/2000/svg"
 	>
-		<path fill="#000000" d="M14 7H9V2H7v5H2v2h5v5h2V9h5V7z"/>
+		<path fill={fill} d="M14 7H9V2H7v5H2v2h5v5h2V9h5V7z"/>
 	</svg>
 );

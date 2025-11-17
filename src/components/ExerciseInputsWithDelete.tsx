@@ -1,4 +1,6 @@
 import {useTranslation} from "react-i18next";
+import {Plus} from "../svg/plus";
+import {Cross} from "../svg/cross";
 
 interface ExerciseInputsWithDeleteProps {
 	exercises: { name: string }[];
@@ -16,7 +18,7 @@ export const ExerciseInputsWithDelete = ({
 	const {t} = useTranslation();
 
 	return (
-		<div style={{marginBottom: '16px'}}>
+		<div style={{marginBottom: '16px', padding: '15px',}}>
 			<label style={{display: 'block', marginBottom: '16px', fontWeight: '600'}}>
 				{t('workouts.exercises')}
 			</label>
@@ -37,20 +39,19 @@ export const ExerciseInputsWithDelete = ({
 						style={{flex: 1}}
 						autoFocus
 					/>
-					{exercises.length > 1 && (
-						<button
-							className="btn"
-							onClick={() => onRemove(index)}
-							style={{
-								width: '44px',
-								background: 'var(--danger)',
-								color: 'white'
-							}}
-							type="button"
-						>
-							×
-						</button>
-					)}
+					<button
+						disabled={exercises.length <= 1}
+						className="btn"
+						onClick={() => onRemove(index)}
+						style={{
+							width: '44px',
+							background: 'var(--danger)',
+							color: 'white'
+						}}
+						type="button"
+					>
+						<Cross height={15} width={15} fill='var(--bg)'/>
+					</button>
 				</div>
 			))}
 
@@ -60,7 +61,7 @@ export const ExerciseInputsWithDelete = ({
 				style={{width: '100%'}}
 				type="button"
 			>
-				+ {t('workouts.addExercise')}
+				<Plus height={15} width={15}/> {t('workouts.addExercise')}
 			</button>
 		</div>
 	);
