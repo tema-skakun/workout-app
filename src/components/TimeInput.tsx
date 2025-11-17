@@ -47,8 +47,8 @@ const TimeInput = ({
 				}}
 			/>
 			<span style={{color: 'var(--text-light)', fontSize: '14px'}}>
-          с
-        </span>
+				{t('fields.secondsShort')}
+			</span>
 			{hasError && <p style={{color: 'red', margin: '4px 0 0'}}>{t('fields.minHint', {min})}</p>}
 		</div>
 	);

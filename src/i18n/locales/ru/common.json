@@ -68,7 +68,8 @@
     "restTime": "Отдых",
     "rounds": "Раунды",
     "restBetweenRounds": "Отдых между раундами",
-    "minHint": "Минимум {{min}}"
+    "minHint": "Минимум {{min}}",
+    "secondsShort": "с"
   },
   "languages": {
     "ru": "Русский",

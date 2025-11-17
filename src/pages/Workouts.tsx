@@ -37,13 +37,15 @@ export default function Workouts() {
 			{items.length === 0 && <p>{t('workouts.dontHave')}</p>}
 			<ul style={{listStyle: 'none', padding: 0, margin: 0}}>
 				{items.map(w => (
-					<li key={w.id} style={{
+					<li
+						key={w.id}
+						className='card'
+						style={{
 						display: 'flex',
 						gap: 8,
 						alignItems: 'center',
 						marginBottom: 8,
 						padding: 12,
-						border: '2px solid #0a4a94',
 						borderRadius: 12
 					}}>
 						<Link to={`/train-workout/${w.id}`} style={{flex: 1}}>{w.name}</Link>
