@@ -1,6 +1,7 @@
 import {useAuth} from "@/auth/AuthContext";
 import {useTranslation} from "react-i18next";
 import {Link} from "react-router-dom";
+import {Workout} from "../svg/workout";
 
 export default function Home() {
 	const {t} = useTranslation();
@@ -16,6 +17,7 @@ export default function Home() {
 		}}>
 			<div style={{textAlign: 'center'}}>
 				<h1>{t('home.welcome')}</h1>
+				<Workout width={200} height={200}/>
 				{!user &&
             <div style={{display: 'flex', gap: 8, justifyContent: 'center'}}>
                 <Link to="/login" className="btn">{t('home.ctaLogin')}</Link>
