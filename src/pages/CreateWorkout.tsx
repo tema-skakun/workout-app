@@ -6,7 +6,7 @@ import {WorkoutForm} from '@/components/WorkoutForm';
 import {Arrow} from '@/svg/arrow';
 import type {WorkoutFormData} from '@/hooks/useWorkoutForm';
 
-export default function CreateWorkout() {
+const CreateWorkout = () => {
 	const {t} = useTranslation();
 	const {user} = useAuth();
 	const navigate = useNavigate();
@@ -46,3 +46,5 @@ export default function CreateWorkout() {
 		</div>
 	);
 }
+
+export default CreateWorkout;

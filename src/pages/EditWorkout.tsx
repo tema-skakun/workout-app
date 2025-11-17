@@ -7,7 +7,7 @@ import {Arrow} from '@/svg/arrow';
 import type {WorkoutFormData} from '@/hooks/useWorkoutForm';
 import type {Workout} from '@/domain/types';
 
-export default function EditWorkout() {
+const EditWorkout = () => {
 	const {t} = useTranslation();
 	const {id} = useParams();
 	const navigate = useNavigate();
@@ -110,3 +110,5 @@ export default function EditWorkout() {
 		</div>
 	);
 }
+
+export default EditWorkout;
