@@ -3,11 +3,15 @@ import {useTranslation} from 'react-i18next';
 import Navbar from './Navbar';
 import LanguageSwitcher from "./LanguageSwitcher";
 
-export default function Header() {
+const Header = () => {
 	const {t} = useTranslation();
 	const {user, logout} = useAuth();
+
 	return (
-		<header style={{borderBottom: '1px solid #0a4a94'}}>
+		<header style={{
+			borderBottom: '1px solid #0a4a94',
+			width: '100dvw'
+		}}>
 			<h3 style={{margin: 0, color: 'black'}}>{t('appTitle')}</h3>
 			{user ? (
 				<>
@@ -25,3 +29,5 @@ export default function Header() {
 		</header>
 	);
 }
+
+export default Header;

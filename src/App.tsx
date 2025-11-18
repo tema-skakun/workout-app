@@ -22,7 +22,7 @@ function PrivateRoute({children}: { children: ReactNode }) {
 
 export default function App() {
 	return (
-		<div style={{display: 'flex', flexDirection: 'column', height: 'calc(100dvh - 63px)'}}>
+		<div style={{display: 'flex', flexDirection: 'column', minHeight: '100dvh'}}>
 			<Header/>
 			<main className="container" style={{flex: 1}}>
 				<Routes>
