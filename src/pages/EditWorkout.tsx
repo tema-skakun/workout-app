@@ -97,6 +97,7 @@ const EditWorkout = () => {
 				>
 					<Arrow/>
 				</button>
+				<h2 style={{margin: 0, flex: 1, textAlign: 'center'}}>{t('workouts.edit')}</h2>
 			</div>
 
 			<WorkoutForm
@@ -104,7 +105,6 @@ const EditWorkout = () => {
 				onSubmit={handleSubmit}
 				onCancel={handleCancel}
 				submitButtonText={t('workouts.save')}
-				title={t('workouts.edit')}
 				isLoading={isSubmitting}
 			/>
 		</div>

@@ -4,10 +4,9 @@ import {useNavigate} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
 import {Arrow} from '@/svg/arrow';
 
-// const basename = import.meta.env.BASE_URL ? '/workout-app/' : '/';
 const basename = import.meta.env.PROD ? '/' : '/workout-app/';
 
-export default function Register() {
+const Register = () => {
 	const {t} = useTranslation();
 	const {register} = useAuth();
 	const nav = useNavigate();
@@ -27,15 +26,18 @@ export default function Register() {
 
 	return (
 		<div style={{maxWidth: 360, margin: '0 auto'}}>
-			<button
-				className="btn secondary"
-				onClick={() => nav(basename)}
-				style={{marginBottom: 16, display: 'flex', alignItems: 'center', gap: 8}}
-			>
-				<Arrow/>
-			</button>
+			<div style={{display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px'}}>
+				<button
+					className="btn"
+					onClick={() => nav(basename)}
+					style={{display: 'flex', alignItems: 'center', padding: '8px'}}
+				>
+					<Arrow/>
+				</button>
+				<h2 style={{margin: 0, flex: 1, textAlign: 'center'}}>{t('nav.register')}</h2>
+			</div>
+
 			<form onSubmit={onSubmit}>
-				<h2>{t('nav.register')}</h2>
 				{error && <p style={{color: 'red'}}>{error}</p>}
 				<div style={{display: 'grid', gap: 8}}>
 					<input className="input" type="email" placeholder={t('auth.email')!} value={email}
@@ -48,3 +50,5 @@ export default function Register() {
 		</div>
 	);
 }
+
+export default Register

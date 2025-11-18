@@ -72,9 +72,6 @@ export const WorkoutForm: React.FC<WorkoutFormProps> = ({
 
 	return (
 		<div style={{maxWidth: '480px', margin: '0 auto'}}>
-			<h2 style={{marginBottom: '20px', fontSize: '20px'}}>
-				{title}
-			</h2>
 
 			<Tabs activeTab={activeTab} onTabChange={setActiveTab} tabs={tabs}/>
 

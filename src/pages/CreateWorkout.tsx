@@ -35,13 +35,13 @@ const CreateWorkout = () => {
 				>
 					<Arrow/>
 				</button>
+				<h2 style={{margin: 0, flex: 1, textAlign: 'center'}}>{t('workouts.create')}</h2>
 			</div>
 
 			<WorkoutForm
 				onSubmit={handleSubmit}
 				onCancel={handleCancel}
 				submitButtonText={t('workouts.createBtn')}
-				title={t('workouts.create')}
 			/>
 		</div>
 	);
