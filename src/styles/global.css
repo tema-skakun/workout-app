@@ -124,6 +124,12 @@ footer {
     z-index: 100;
 }
 
+@media (max-height: 900px) {
+  .footer {
+    display: none;
+  }
+}
+
 /* Основной контент */
 main {
     flex: 1;

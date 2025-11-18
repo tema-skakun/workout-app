@@ -1,10 +1,12 @@
 import {useTranslation} from "react-i18next";
 
-export default function Footer() {
+const Footer = () => {
 	const {t} = useTranslation();
 	return (
-		<footer>
+		<footer className="footer">
 			<p>© {new Date().getFullYear()} {t('appTitle')}</p>
 		</footer>
 	);
 }
+
+export default Footer
