@@ -191,3 +191,14 @@ main {
         font-size: 56px;
     }
 }
+
+.app-title {
+  margin: 0;
+  color: black;
+}
+
+@media (max-width: 450px) {
+  .app-title {
+    display: none;
+  }
+}

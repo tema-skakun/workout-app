@@ -12,7 +12,7 @@ const Header = () => {
 			borderBottom: '1px solid #0a4a94',
 			width: '100dvw'
 		}}>
-			<h3 style={{margin: 0, color: 'black'}}>{t('appTitle')}</h3>
+			<h3 className="app-title">{t('appTitle')}</h3>
 			{user ? (
 				<>
 					<Navbar/>
