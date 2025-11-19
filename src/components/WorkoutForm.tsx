@@ -10,7 +10,7 @@ interface WorkoutFormProps {
 	onSubmit: (formData: WorkoutFormData) => Promise<void>;
 	onCancel: () => void;
 	submitButtonText: string;
-	title: string;
+	// title: string;
 	isLoading?: boolean;
 }
 
@@ -19,7 +19,7 @@ export const WorkoutForm: React.FC<WorkoutFormProps> = ({
 																													onSubmit,
 																													onCancel,
 																													submitButtonText,
-																													title,
+																													// title,
 																													isLoading = false
 																												}) => {
 	const {t} = useTranslation();
