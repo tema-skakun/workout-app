@@ -79,5 +79,11 @@
     "next": "Next",
     "back": "Back",
     "cancel": "Cancel"
+  },
+  "deleteConfirm": {
+    "title": "Delete Confirmation",
+    "message": "Are you sure you want to delete workout \"{{name}}\"?",
+    "yes": "Yes",
+    "no": "No"
   }
 }
