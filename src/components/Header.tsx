@@ -2,10 +2,15 @@ import {useAuth} from '@/auth/AuthContext';
 import {useTranslation} from 'react-i18next';
 import Navbar from './Navbar';
 import LanguageSwitcher from "./LanguageSwitcher";
+import {useLocation} from 'react-router-dom';
 
 const Header = () => {
 	const {t} = useTranslation();
 	const {user, logout} = useAuth();
+	const location = useLocation(); // Получаем текущий путь
+
+	// Проверяем, находимся ли на странице тренировки
+	const isTrainWorkoutPage = location.pathname.includes('/train-workout');
 
 	return (
 		<header style={{
@@ -16,16 +21,19 @@ const Header = () => {
 			{user ? (
 				<>
 					<Navbar/>
-					<button
-						className="btn"
-						onClick={logout}
-						style={{marginLeft: 'auto'}}
-					>
-						{t('nav.logout')}
-					</button>
+					{/* Скрываем кнопку выхода только на странице тренировки */}
+					{!isTrainWorkoutPage && (
+						<button
+							className="btn"
+							onClick={logout}
+							style={{marginLeft: 'auto'}}
+						>
+							{t('nav.logout')}
+						</button>
+					)}
 				</>
 			) : null}
-			<LanguageSwitcher />
+			<LanguageSwitcher/>
 		</header>
 	);
 }
