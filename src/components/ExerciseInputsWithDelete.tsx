@@ -18,11 +18,7 @@ export const ExerciseInputsWithDelete = ({
 	const {t} = useTranslation();
 
 	return (
-		<div style={{marginBottom: '16px', padding: '15px',}}>
-			<label style={{display: 'block', marginBottom: '16px', fontWeight: '600'}}>
-				{t('workouts.exercises')}
-			</label>
-
+		<div style={{marginBottom: '16px', padding: '15px'}}>
 			{exercises.map((exercise, index) => (
 				<div key={index} style={{
 					display: 'flex',
