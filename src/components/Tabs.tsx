@@ -4,9 +4,10 @@ interface TabsProps {
 	activeTab: number;
 	onTabChange: (tab: number) => void;
 	tabs: string[];
+	disabledTabs?: boolean[]; // Добавляем проп для disabled состояний
 }
 
-export default function Tabs({ activeTab, onTabChange, tabs }: TabsProps) {
+export default function Tabs({activeTab, onTabChange, tabs, disabledTabs = []}: TabsProps) {
 	return (
 		<div style={{
 			display: 'flex',
@@ -16,25 +17,32 @@ export default function Tabs({ activeTab, onTabChange, tabs }: TabsProps) {
 			padding: '4px',
 			boxShadow: 'var(--inner-shadow)'
 		}}>
-			{tabs.map((tab, index) => (
-				<button
-					key={index}
-					onClick={() => onTabChange(index)}
-					className="btn"
-					style={{
-						flex: 1,
-						background: activeTab === index ? 'var(--primary)' : 'transparent',
-						color: activeTab === index ? 'white' : 'var(--text)',
-						boxShadow: 'none',
-						border: 'none',
-						borderRadius: '12px',
-						fontWeight: activeTab === index ? '600' : '400',
-						transition: 'all 0.3s ease'
-					}}
-				>
-					{tab}
-				</button>
-			))}
+			{tabs.map((tab, index) => {
+				const isDisabled = disabledTabs[index];
+
+				return (
+					<button
+						key={index}
+						onClick={() => !isDisabled && onTabChange(index)}
+						className="btn"
+						disabled={isDisabled}
+						style={{
+							flex: 1,
+							background: activeTab === index ? 'var(--primary)' : 'transparent',
+							color: activeTab === index ? 'white' : isDisabled ? 'var(--text-light)' : 'var(--text)',
+							boxShadow: 'none',
+							border: 'none',
+							borderRadius: '12px',
+							fontWeight: activeTab === index ? '600' : '400',
+							transition: 'all 0.3s ease',
+							cursor: isDisabled ? 'not-allowed' : 'pointer',
+							opacity: isDisabled ? 0.5 : 1
+						}}
+					>
+						{tab}
+					</button>
+				);
+			})}
 		</div>
 	);
 }

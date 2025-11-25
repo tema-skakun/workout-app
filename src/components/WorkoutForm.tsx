@@ -73,7 +73,12 @@ export const WorkoutForm: React.FC<WorkoutFormProps> = ({
 	return (
 		<div style={{maxWidth: '480px', margin: '0 auto'}}>
 
-			<Tabs activeTab={activeTab} onTabChange={setActiveTab} tabs={tabs}/>
+			<Tabs
+				activeTab={activeTab}
+				onTabChange={setActiveTab}
+				tabs={tabs}
+				disabledTabs={[false, !isFirstTabValid()]} // Вторая вкладка disabled пока не пройдена валидация первой
+			/>
 
 			{error && (
 				<div style={{
@@ -104,7 +109,8 @@ export const WorkoutForm: React.FC<WorkoutFormProps> = ({
 								onChange={handleChange}
 								placeholder={t('workouts.name')!}
 								style={{
-									borderColor: !form.name.trim() ? 'var(--danger)' : undefined
+									borderColor: !form.name.trim() ? 'var(--danger)' : undefined,
+									borderWidth: !form.name.trim() ? '2px' : undefined
 								}}
 							/>
 						</div>
