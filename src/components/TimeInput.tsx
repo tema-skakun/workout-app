@@ -6,6 +6,7 @@ const TimeInput = ({
 										 name,
 										 value,
 										 min,
+										 max,
 										 onChange,
 										 hasError
 									 }: {
@@ -13,6 +14,7 @@ const TimeInput = ({
 	name: string;
 	value: number;
 	min: number;
+	max: number;
 	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 	hasError?: boolean;
 }) => {
@@ -40,6 +42,7 @@ const TimeInput = ({
 				name={name}
 				value={value}
 				min={min}
+				max={max}
 				onChange={handleChange}
 				style={{
 					borderColor: hasError ? 'red' : '#ccc',
@@ -47,9 +50,16 @@ const TimeInput = ({
 				}}
 			/>
 			<span style={{color: 'var(--text-light)', fontSize: '14px'}}>
-				{t('fields.secondsShort')}
-			</span>
-			{hasError && <p style={{color: 'red', margin: '4px 0 0'}}>{t('fields.minHint', {min})}</p>}
+        {t('fields.secondsShort')}
+      </span>
+			{hasError && (
+				<p style={{color: 'red', margin: '4px 0 0', fontSize: '12px'}}>
+					{value < min
+						? t('fields.minHint', {min})
+						: t('fields.maxHint', {max})
+					}
+				</p>
+			)}
 		</div>
 	);
 }

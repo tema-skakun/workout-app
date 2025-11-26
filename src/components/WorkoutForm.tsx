@@ -108,6 +108,7 @@ export const WorkoutForm: React.FC<WorkoutFormProps> = ({
 								value={form.name}
 								onChange={handleChange}
 								placeholder={t('workouts.name')!}
+								maxLength={20}
 								style={{
 									borderColor: !form.name.trim() ? 'var(--danger)' : undefined,
 									borderWidth: !form.name.trim() ? '2px' : undefined
@@ -120,40 +121,45 @@ export const WorkoutForm: React.FC<WorkoutFormProps> = ({
 							name="warmupTime"
 							value={form.warmupTime}
 							min={5}
+							max={3600}
 							onChange={handleChange}
-							hasError={form.warmupTime < 5}
+							hasError={form.warmupTime < 5 || form.warmupTime > 3600}
 						/>
 						<TimeInput
 							labelKey="fields.exerciseTime"
 							name="exerciseTime"
 							value={form.exerciseTime}
 							min={5}
+							max={3600}
 							onChange={handleChange}
-							hasError={form.exerciseTime < 5}
+							hasError={form.exerciseTime < 5 || form.exerciseTime > 3600}
 						/>
 						<TimeInput
 							labelKey="fields.restTime"
 							name="restTime"
 							value={form.restTime}
 							min={5}
+							max={3600}
 							onChange={handleChange}
-							hasError={form.restTime < 5}
+							hasError={form.restTime < 5 || form.restTime > 3600}
 						/>
 						<TimeInput
 							labelKey="fields.rounds"
 							name="rounds"
 							value={form.rounds}
 							min={1}
+							max={999}
 							onChange={handleChange}
-							hasError={form.rounds < 1}
+							hasError={form.rounds < 1 || form.rounds > 999}
 						/>
 						<TimeInput
 							labelKey="fields.restBetweenRounds"
 							name="restBetweenRounds"
 							value={form.restBetweenRounds}
 							min={5}
+							max={3600}
 							onChange={handleChange}
-							hasError={form.restBetweenRounds < 5}
+							hasError={form.restBetweenRounds < 5 || form.restBetweenRounds > 3600}
 						/>
 					</div>
 				)}
@@ -198,7 +204,7 @@ export const WorkoutForm: React.FC<WorkoutFormProps> = ({
 							style={{flex: 1}}
 							disabled={isLoading}
 						>
-							{t('common.cancel', 'Отмена')}
+							{t('common.cancel')}
 						</button>
 						<button
 							className={`btn primary ${!isFirstTabValid() ? 'disabled' : ''}`}
@@ -210,7 +216,7 @@ export const WorkoutForm: React.FC<WorkoutFormProps> = ({
 								cursor: (!isFirstTabValid() || isLoading) ? 'not-allowed' : 'pointer'
 							}}
 						>
-							{t('common.next', 'Далее')}
+							{t('common.next')}
 						</button>
 					</>
 				) : (
@@ -221,7 +227,7 @@ export const WorkoutForm: React.FC<WorkoutFormProps> = ({
 							style={{flex: 1}}
 							disabled={isLoading}
 						>
-							{t('common.back', 'Назад')}
+							{t('common.back')}
 						</button>
 						<button
 							className={`btn primary ${!isSecondTabValid() ? 'disabled' : ''}`}

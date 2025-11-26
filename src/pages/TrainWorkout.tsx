@@ -18,7 +18,7 @@ function play(url: string) {
 	a.play();
 }
 
-export default function TrainWorkout() {
+const TrainWorkout = () => {
 	const {t} = useTranslation();
 	const nav = useNavigate();
 	const {id} = useParams();
@@ -199,3 +199,5 @@ export default function TrainWorkout() {
 		</div>
 	);
 }
+
+export default TrainWorkout;

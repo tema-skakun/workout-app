@@ -32,6 +32,7 @@ export const ExerciseInputsWithDelete = ({
 						value={exercise.name}
 						onChange={(e) => onChange(index, e.target.value)}
 						placeholder={`${t('workouts.exercise')} ${index + 1}`}
+						maxLength={20}
 						style={{flex: 1}}
 						autoFocus
 					/>

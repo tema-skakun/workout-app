@@ -59,11 +59,11 @@ export const useWorkoutForm = (initialData?: Partial<WorkoutFormData>) => {
 
 	const isFirstTabValid = () => {
 		return form.name.trim() !== '' &&
-			form.warmupTime >= 5 &&
-			form.exerciseTime >= 5 &&
-			form.restTime >= 5 &&
-			form.rounds >= 1 &&
-			form.restBetweenRounds >= 5;
+			form.warmupTime >= 5 && form.warmupTime <= 3600 &&
+			form.exerciseTime >= 5 && form.exerciseTime <= 3600 &&
+			form.restTime >= 5 && form.restTime <= 3600 &&
+			form.rounds >= 1 && form.rounds <= 999 &&
+			form.restBetweenRounds >= 5 && form.restBetweenRounds <= 3600;
 	};
 
 	const isSecondTabValid = () => {

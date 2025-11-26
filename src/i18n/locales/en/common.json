@@ -69,6 +69,7 @@
     "rounds": "Rounds",
     "restBetweenRounds": "Rest between rounds",
     "minHint": "Min {{min}}",
+    "maxHint": "Max {{max}}",
     "secondsShort": "s"
   },
   "languages": {

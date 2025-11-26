@@ -69,6 +69,7 @@
     "rounds": "Раунды",
     "restBetweenRounds": "Отдых между раундами",
     "minHint": "Минимум {{min}}",
+    "maxHint": "Максимум {{max}}",
     "secondsShort": "с"
   },
   "languages": {
