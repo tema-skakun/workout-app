@@ -100,10 +100,10 @@ export const WorkoutForm: React.FC<WorkoutFormProps> = ({
 			}}>
 				{activeTab === 0 && (
 					<div style={{flex: 1}}>
-						<div style={{marginBottom: '16px'}}>
+						<div style={{marginBottom: '12px'}}>
 							<input
 								autoFocus
-								className="input"
+								className="input small"
 								name="name"
 								value={form.name}
 								onChange={handleChange}
@@ -111,7 +111,8 @@ export const WorkoutForm: React.FC<WorkoutFormProps> = ({
 								maxLength={20}
 								style={{
 									borderColor: !form.name.trim() ? 'var(--danger)' : undefined,
-									borderWidth: !form.name.trim() ? '2px' : undefined
+									borderWidth: !form.name.trim() ? '2px' : undefined,
+									height: '40px'
 								}}
 							/>
 						</div>
@@ -191,27 +192,28 @@ export const WorkoutForm: React.FC<WorkoutFormProps> = ({
 
 			<div style={{
 				display: 'flex',
-				gap: '12px',
-				marginTop: '24px',
+				gap: '10px',
+				marginTop: '20px',
 				paddingTop: '16px',
 				borderTop: '1px solid rgba(0,0,0,0.1)'
 			}}>
 				{activeTab === 0 ? (
 					<>
 						<button
-							className="btn"
+							className="btn small"
 							onClick={onCancel}
-							style={{flex: 1}}
+							style={{flex: 1, height: '38px'}}
 							disabled={isLoading}
 						>
-							{t('common.cancel')}
+							{t('common.cancel', 'Отмена')}
 						</button>
 						<button
-							className={`btn primary ${!isFirstTabValid() ? 'disabled' : ''}`}
+							className={`btn small primary ${!isFirstTabValid() ? 'disabled' : ''}`}
 							onClick={handleNext}
 							disabled={!isFirstTabValid() || isLoading}
 							style={{
 								flex: 1,
+								height: '38px',
 								opacity: (!isFirstTabValid() || isLoading) ? 0.5 : 1,
 								cursor: (!isFirstTabValid() || isLoading) ? 'not-allowed' : 'pointer'
 							}}
@@ -222,19 +224,20 @@ export const WorkoutForm: React.FC<WorkoutFormProps> = ({
 				) : (
 					<>
 						<button
-							className="btn"
+							className="btn small"
 							onClick={handleBack}
-							style={{flex: 1}}
+							style={{flex: 1, height: '38px'}}
 							disabled={isLoading}
 						>
 							{t('common.back')}
 						</button>
 						<button
-							className={`btn primary ${!isSecondTabValid() ? 'disabled' : ''}`}
+							className={`btn small primary ${!isSecondTabValid() ? 'disabled' : ''}`}
 							onClick={handleSubmit}
 							disabled={!isSecondTabValid() || isLoading}
 							style={{
 								flex: 1,
+								height: '38px',
 								opacity: (!isSecondTabValid() || isLoading) ? 0.5 : 1,
 								cursor: (!isSecondTabValid() || isLoading) ? 'not-allowed' : 'pointer'
 							}}

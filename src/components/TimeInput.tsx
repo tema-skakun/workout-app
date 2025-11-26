@@ -32,11 +32,11 @@ const TimeInput = ({
 
 	return (
 		<div style={{display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12}}>
-			<label htmlFor={name} style={{display: 'block', marginBottom: 4}}>
+			<label htmlFor={name} style={{display: 'block', marginBottom: 4, fontSize: '14px'}}>
 				{t(labelKey)}
 			</label>
 			<input
-				className="input"
+				className="input small"
 				type="number"
 				id={name}
 				name={name}
@@ -49,7 +49,11 @@ const TimeInput = ({
 					width: '85px',
 				}}
 			/>
-			<span style={{color: 'var(--text-light)', fontSize: '14px'}}>
+			<span style={{
+				color: 'var(--text-light)',
+				fontSize: '13px',
+				minWidth: '20px'
+			}}>
         {t('fields.secondsShort')}
       </span>
 			{hasError && (

@@ -208,3 +208,20 @@ main {
     display: none;
   }
 }
+
+/* Маленькие инпуты для форм ввода */
+.input.small {
+  height: 28px;
+  padding: 0 12px;
+  font-size: 14px;
+  border-radius: 12px;
+}
+
+/* Маленькие кнопки */
+.btn.small {
+  height: 32px;
+  padding: 6px 12px;
+  font-size: 13px;
+  border-radius: 10px;
+  min-width: auto;
+}
