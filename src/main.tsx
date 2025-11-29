@@ -6,11 +6,10 @@ import './index.css';
 import './styles/global.css';
 import {AuthProvider} from './auth/AuthContext';
 import {BrowserRouter} from 'react-router-dom';
-
-const basename = import.meta.env.PROD ? '/workout-app' : '/';
+import {APP_CONFIG} from "@/constants/app";
 
 // Регистрируем SW только в production и только если модуль доступен
-if (import.meta.env.PROD) {
+if (APP_CONFIG.IS_PROD) {
 	import('virtual:pwa-register')
 		.then(({registerSW}) => {
 			registerSW({
@@ -24,7 +23,7 @@ if (import.meta.env.PROD) {
 
 createRoot(document.getElementById('root') as HTMLElement).render(
 	<StrictMode>
-		<BrowserRouter basename={basename}>
+		<BrowserRouter basename={APP_CONFIG.BASENAME}>
 			<AuthProvider>
 				<App/>
 			</AuthProvider>

@@ -1,7 +1,7 @@
 import {useAuth} from "@/auth/AuthContext";
 import {useTranslation} from "react-i18next";
 import {Link} from "react-router-dom";
-import {Workout} from "../svg/workout";
+import {Workout} from "@/svg/workout";
 
 export default function Home() {
 	const {t} = useTranslation();

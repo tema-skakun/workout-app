@@ -49,6 +49,7 @@ find . -type f \
     -not -name "*.yml" \
     -not -name "*.md" \
     -not -name "*-lock.json" \
+    -not -name "*.tsbuildinfo" \
     -print0 | while IFS= read -r -d '' file; do
     process_file "$file"
 done

@@ -3,8 +3,7 @@ import {useAuth} from '@/auth/AuthContext';
 import {useNavigate} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
 import {Arrow} from '@/svg/arrow';
-
-const basename = import.meta.env.PROD ? '/' : '/workout-app/';
+import {APP_CONFIG} from "@/constants/app";
 
 const Login = () => {
 	const {t} = useTranslation();
@@ -24,12 +23,16 @@ const Login = () => {
 		nav('/workouts');
 	};
 
+	const handleBack = () => {
+		nav(APP_CONFIG.BASENAME);
+	};
+
 	return (
 		<div style={{maxWidth: 360, margin: '0 auto'}}>
 			<div style={{display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px'}}>
 				<button
 					className="btn"
-					onClick={() => nav(basename)}
+					onClick={handleBack}
 					style={{display: 'flex', alignItems: 'center', padding: '8px'}}
 				>
 					<Arrow/>

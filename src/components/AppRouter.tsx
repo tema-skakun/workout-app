@@ -9,8 +9,6 @@ import CreateWorkout from '@/pages/CreateWorkout';
 import {useAuth} from '@/auth/AuthContext';
 import {ReactNode} from 'react';
 
-const basename = import.meta.env.PROD ? '/' : '/workout-app/';
-
 function PrivateRoute({children}: { children: ReactNode }) {
 	const {user} = useAuth();
 	if (!user) return <Navigate to="/login" replace/>;
@@ -28,7 +26,7 @@ export default function AppRouter() {
 
 	return (
 		<Routes>
-			<Route path={basename} element={
+			<Route path="/" element={
 				user ? <Navigate to="/workouts" replace/> : <Home/>
 			}/>
 			<Route path="/login" element={
