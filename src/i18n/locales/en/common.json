@@ -70,7 +70,8 @@
     "restBetweenRounds": "Rest between rounds",
     "minHint": "Min {{min}}",
     "maxHint": "Max {{max}}",
-    "secondsShort": "s"
+    "secondsShort": "s",
+    "piecesShort": "pcs"
   },
   "languages": {
     "ru": "Russian",

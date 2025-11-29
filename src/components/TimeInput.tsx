@@ -1,15 +1,7 @@
 import React from 'react';
 import {useTranslation} from 'react-i18next';
 
-const TimeInput = ({
-										 labelKey,
-										 name,
-										 value,
-										 min,
-										 max,
-										 onChange,
-										 hasError
-									 }: {
+interface TimeInputProps {
 	labelKey: string;
 	name: string;
 	value: number;
@@ -17,7 +9,19 @@ const TimeInput = ({
 	max: number;
 	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 	hasError?: boolean;
-}) => {
+	unit?: 'seconds' | 'pieces';
+}
+
+const TimeInput = ({
+										 labelKey,
+										 name,
+										 value,
+										 min,
+										 max,
+										 onChange,
+										 hasError,
+										 unit = 'seconds'
+									 }: TimeInputProps) => {
 	const {t} = useTranslation();
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,6 +33,11 @@ const TimeInput = ({
 		}
 		onChange(e);
 	};
+
+	// Определяем отображаемую единицу измерения
+	const displayUnit = unit === 'pieces'
+		? t('fields.piecesShort', 'шт')
+		: t('fields.secondsShort', 'с');
 
 	return (
 		<div style={{display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12}}>
@@ -49,19 +58,12 @@ const TimeInput = ({
 					width: '85px',
 				}}
 			/>
-			<span style={{
-				color: 'var(--text-light)',
-				fontSize: '13px',
-				minWidth: '20px'
-			}}>
-        {t('fields.secondsShort')}
+			<span style={{color: 'var(--text-light)', fontSize: '13px', minWidth: '20px'}}>
+        {displayUnit}
       </span>
 			{hasError && (
 				<p style={{color: 'red', margin: '4px 0 0', fontSize: '12px'}}>
-					{value < min
-						? t('fields.minHint', {min})
-						: t('fields.maxHint', {max})
-					}
+					{value < min ? t('fields.minHint', {min}) : t('fields.maxHint', {max})}
 				</p>
 			)}
 		</div>

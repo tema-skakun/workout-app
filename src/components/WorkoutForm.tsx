@@ -152,6 +152,7 @@ export const WorkoutForm: React.FC<WorkoutFormProps> = ({
 							max={999}
 							onChange={handleChange}
 							hasError={form.rounds < 1 || form.rounds > 999}
+							unit="pieces"
 						/>
 						<TimeInput
 							labelKey="fields.restBetweenRounds"
