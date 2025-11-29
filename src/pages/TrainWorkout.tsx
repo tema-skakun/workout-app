@@ -5,18 +5,9 @@ import type {Workout} from '@/domain/types';
 import {useTranslation} from 'react-i18next';
 import {Pause} from '@/svg/pause';
 import {Play} from '@/svg/play';
+import {Howl} from 'howler';
 
 const baseUrl = import.meta.env.BASE_URL;
-const sounds = {
-	whistle: `${baseUrl}sounds/whistle.mp3`,
-	ticking: `${baseUrl}sounds/ticking.mp3`,
-	gong: `${baseUrl}sounds/gong.mp3`
-};
-
-function play(url: string) {
-	const a = new Audio(url);
-	a.play();
-}
 
 const TrainWorkout = () => {
 	const {t} = useTranslation();
@@ -30,7 +21,50 @@ const TrainWorkout = () => {
 	const [stage, setStage] = useState<'warmup' | 'exercise' | 'rest' | 'restBetweenRounds' | 'complete'>('warmup');
 	const [timeLeft, setTimeLeft] = useState(0);
 	const [nextExercise, setNextExercise] = useState('');
+
 	const intervalRef = useRef<number | null>(null);
+
+	// Референсы для звуков Howler
+	const soundsRef = useRef<{
+		whistle: Howl | null;
+		ticking: Howl | null;
+		gong: Howl | null;
+	}>({
+		whistle: null,
+		ticking: null,
+		gong: null
+	});
+
+	// Инициализация звуков
+	useEffect(() => {
+		soundsRef.current.whistle = new Howl({
+			src: [`${baseUrl}sounds/whistle.mp3`],
+			preload: true,
+			html5: true // Для лучшей поддержки на мобильных устройствах
+		});
+
+		soundsRef.current.ticking = new Howl({
+			src: [`${baseUrl}sounds/ticking.mp3`],
+			preload: true,
+			html5: true,
+			loop: true // Тиканье будет зациклено
+		});
+
+		soundsRef.current.gong = new Howl({
+			src: [`${baseUrl}sounds/gong.mp3`],
+			preload: true,
+			html5: true
+		});
+
+		// Очистка при размонтировании
+		return () => {
+			Object.values(soundsRef.current).forEach(sound => {
+				if (sound) {
+					sound.unload();
+				}
+			});
+		};
+	}, []);
 
 	useEffect(() => {
 		if (!id) return;
@@ -54,17 +88,57 @@ const TrainWorkout = () => {
 		complete: t('timer.done')
 	})[stage], [stage, currentExerciseIndex, workout, t]);
 
+	// Функция для воспроизведения звука
+	const playSound = (soundName: 'whistle' | 'ticking' | 'gong') => {
+		const sound = soundsRef.current[soundName];
+		if (sound && !sound.playing()) {
+			sound.play();
+		}
+	};
+
+	// Функция для остановки звука
+	const stopSound = (soundName: 'whistle' | 'ticking' | 'gong') => {
+		const sound = soundsRef.current[soundName];
+		if (sound) {
+			sound.stop();
+		}
+	};
+
+	// Функция для паузы звука
+	const pauseSound = (soundName: 'whistle' | 'ticking' | 'gong') => {
+		const sound = soundsRef.current[soundName];
+		if (sound && sound.playing()) {
+			sound.pause();
+		}
+	};
+
+	// Функция для возобновления звука
+	const resumeSound = (soundName: 'whistle' | 'ticking' | 'gong') => {
+		const sound = soundsRef.current[soundName];
+		if (sound && !sound.playing()) {
+			sound.play();
+		}
+	};
+
 	const startTimer = (ms: number) => {
 		setTimeLeft(ms);
 		if (intervalRef.current) window.clearInterval(intervalRef.current);
+
 		intervalRef.current = window.setInterval(() => {
 			setTimeLeft(prev => {
 				const next = prev - 1000;
-				if (next === 4000) play(sounds.ticking);
+
+				// Запускаем тиканье за 4 секунды до конца
+				if (next === 4000) {
+					playSound('ticking');
+				}
+
 				if (next <= 0) {
 					window.clearInterval(intervalRef.current!);
+					stopSound('ticking'); // Останавливаем тиканье при завершении этапа
 					return 0;
 				}
+
 				return next;
 			});
 		}, 1000);
@@ -75,9 +149,15 @@ const TrainWorkout = () => {
 			handleStart();
 		} else if (isPaused) {
 			setIsPaused(false);
+			// Возобновляем тиканье, если оно должно играть
+			if (timeLeft <= 4000 && timeLeft > 0) {
+				resumeSound('ticking');
+			}
 			startTimer(timeLeft);
 		} else {
 			if (intervalRef.current) window.clearInterval(intervalRef.current);
+			// Ставим на паузу тиканье
+			pauseSound('ticking');
 			setIsPaused(true);
 		}
 	};
@@ -99,42 +179,53 @@ const TrainWorkout = () => {
 		if (stage === 'warmup') {
 			setStage('exercise');
 			startTimer(workout.exerciseTime * 1000);
-			play(sounds.whistle);
+			playSound('whistle');
 		} else if (stage === 'exercise') {
 			if (currentExerciseIndex < workout.exercises.length - 1) {
 				setStage('rest');
 				setNextExercise(workout.exercises[currentExerciseIndex + 1]?.name || '');
 				startTimer(workout.restTime * 1000);
-				play(sounds.gong);
+				playSound('gong');
 			} else if (roundIndex < workout.rounds - 1) {
 				setStage('restBetweenRounds');
 				setNextExercise(workout.exercises[0]?.name || '');
 				startTimer(workout.restBetweenRounds * 1000);
-				play(sounds.gong);
+				playSound('gong');
 			} else {
 				setStage('complete');
 				setIsActive(false);
-				play(sounds.gong);
+				playSound('gong');
 			}
 		} else if (stage === 'rest') {
 			setStage('exercise');
 			setCurrentExerciseIndex(i => i + 1);
 			startTimer(workout.exerciseTime * 1000);
-			play(sounds.whistle);
+			playSound('whistle');
 		} else if (stage === 'restBetweenRounds') {
 			setStage('exercise');
 			setCurrentExerciseIndex(0);
 			setRoundIndex(r => r + 1);
 			setNextExercise(workout.exercises[1]?.name || '');
 			startTimer(workout.exerciseTime * 1000);
-			play(sounds.whistle);
+			playSound('whistle');
 		} else if (stage === 'complete') {
 			nav('/workouts');
 		}
 	}, [timeLeft, isActive, stage, workout, currentExerciseIndex, roundIndex, nav]);
 
-	useEffect(() => () => {
-		if (intervalRef.current) window.clearInterval(intervalRef.current);
+	// Очистка при размонтировании компонента (выход из тренировки)
+	useEffect(() => {
+		return () => {
+			if (intervalRef.current) {
+				window.clearInterval(intervalRef.current);
+			}
+			// Останавливаем все звуки при выходе
+			Object.values(soundsRef.current).forEach(sound => {
+				if (sound) {
+					sound.stop();
+				}
+			});
+		};
 	}, []);
 
 	if (!workout) return <p>Loading...</p>;
@@ -144,18 +235,12 @@ const TrainWorkout = () => {
 
 	const getStageColor = () => {
 		switch (stage) {
-			case 'warmup':
-				return 'var(--warning)';
-			case 'exercise':
-				return 'var(--primary)';
-			case 'rest':
-				return 'var(--success)';
-			case 'restBetweenRounds':
-				return 'var(--success)';
-			case 'complete':
-				return 'var(--danger)';
-			default:
-				return 'var(--text-light)';
+			case 'warmup': return 'var(--warning)';
+			case 'exercise': return 'var(--primary)';
+			case 'rest': return 'var(--success)';
+			case 'restBetweenRounds': return 'var(--success)';
+			case 'complete': return 'var(--danger)';
+			default: return 'var(--text-light)';
 		}
 	}
 
@@ -168,10 +253,7 @@ const TrainWorkout = () => {
 				style={{color: 'var(--text-light)', fontSize: '1.5rem', fontWeight: 'bold'}}
 			>{workout.name}
 			</div>
-			<div
-				className="stage-label"
-				style={{color: getStageColor()}}
-			>
+			<div className="stage-label" style={{color: getStageColor()}} >
 				{stageLabel}
 			</div>
 			<div
