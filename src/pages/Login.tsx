@@ -24,7 +24,7 @@ const Login = () => {
 	};
 
 	const handleBack = () => {
-		nav(APP_CONFIG.BASENAME);
+		nav(APP_CONFIG.HOME_PATH);
 	};
 
 	return (

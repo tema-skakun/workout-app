@@ -2,13 +2,14 @@ import {useAuth} from '@/auth/AuthContext';
 import {useTranslation} from 'react-i18next';
 import Navbar from './Navbar';
 import LanguageSwitcher from "./LanguageSwitcher";
-import {useLocation} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import {APP_CONFIG} from "@/constants/app";
 
 const Header = () => {
 	const {t} = useTranslation();
+	const navigate = useNavigate();
 	const {user, logout} = useAuth();
-	const location = useLocation(); // Получаем текущий путь
+	const location = useLocation();
 
 	// Проверяем, находимся ли на странице тренировки
 	const isTrainWorkoutPage = location.pathname.includes('/train-workout');
@@ -28,7 +29,7 @@ const Header = () => {
 							className="btn"
 							onClick={() => {
 								logout();
-								window.location.href = APP_CONFIG.IS_PROD ? '/workout-app/' : '/';
+								navigate(APP_CONFIG.HOME_PATH);
 							}}
 							style={{marginLeft: 'auto'}}
 						>
