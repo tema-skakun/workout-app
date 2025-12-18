@@ -3,6 +3,7 @@ import {useTranslation} from 'react-i18next';
 import Navbar from './Navbar';
 import LanguageSwitcher from "./LanguageSwitcher";
 import {useLocation} from 'react-router-dom';
+import {APP_CONFIG} from "@/constants/app";
 
 const Header = () => {
 	const {t} = useTranslation();
@@ -25,7 +26,10 @@ const Header = () => {
 					{!isTrainWorkoutPage && (
 						<button
 							className="btn"
-							onClick={logout}
+							onClick={() => {
+								logout();
+								window.location.href = APP_CONFIG.IS_PROD ? '/workout-app/' : '/';
+							}}
 							style={{marginLeft: 'auto'}}
 						>
 							{t('nav.logout')}
