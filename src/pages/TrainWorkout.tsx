@@ -19,16 +19,17 @@ const TrainWorkout = () => {
 	const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);
 	const [roundIndex, setRoundIndex] = useState(0);
 	const [stage, setStage] = useState<'warmup' | 'exercise' | 'rest' | 'restBetweenRounds' | 'complete'>('warmup');
-
-	// Храним время в миллисекундах
-	const [timeLeftMs, setTimeLeftMs] = useState(0);
+	const [timeLeft, setTimeLeft] = useState(0);
 	const [nextExercise, setNextExercise] = useState('');
 
-	const animationRef = useRef<number | null>(null);
-	const lastUpdateTimeRef = useRef<number>(0);
+	const intervalRef = useRef<number | null>(null);
 
 	// Референсы для звуков Howler
-	const soundsRef = useRef<{ whistle: Howl | null; ticking: Howl | null; gong: Howl | null; }>({
+	const soundsRef = useRef<{
+		whistle: Howl | null;
+		ticking: Howl | null;
+		gong: Howl | null;
+	}>({
 		whistle: null,
 		ticking: null,
 		gong: null
@@ -39,14 +40,14 @@ const TrainWorkout = () => {
 		soundsRef.current.whistle = new Howl({
 			src: [`${baseUrl}sounds/whistle.mp3`],
 			preload: true,
-			html5: true
+			html5: true // Для лучшей поддержки на мобильных устройствах
 		});
 
 		soundsRef.current.ticking = new Howl({
 			src: [`${baseUrl}sounds/ticking.mp3`],
 			preload: true,
 			html5: true,
-			loop: true
+			loop: true // Тиканье будет зациклено
 		});
 
 		soundsRef.current.gong = new Howl({
@@ -74,7 +75,7 @@ const TrainWorkout = () => {
 			}
 			setWorkout(w);
 			setStage('warmup');
-			setTimeLeftMs(w.warmupTime * 1000);
+			setTimeLeft(w.warmupTime * 1000);
 			setNextExercise(w.exercises[0]?.name || '');
 		});
 	}, [id, nav]);
@@ -87,7 +88,7 @@ const TrainWorkout = () => {
 		complete: t('timer.done')
 	})[stage], [stage, currentExerciseIndex, workout, t]);
 
-	// Функции для работы со звуками
+	// Функция для воспроизведения звука
 	const playSound = (soundName: 'whistle' | 'ticking' | 'gong') => {
 		const sound = soundsRef.current[soundName];
 		if (sound && !sound.playing()) {
@@ -119,60 +120,76 @@ const TrainWorkout = () => {
 		}
 	};
 
-	// Основная функция анимации
-	const animate = (timestamp: number) => {
-		if (!lastUpdateTimeRef.current) {
-			lastUpdateTimeRef.current = timestamp;
-		}
+	const startTimer = (ms: number) => {
+		setTimeLeft(ms);
+		if (intervalRef.current) window.clearInterval(intervalRef.current);
 
-		const delta = timestamp - lastUpdateTimeRef.current;
-		lastUpdateTimeRef.current = timestamp;
+		intervalRef.current = window.setInterval(() => {
+			setTimeLeft(prev => {
+				const next = prev - 1000;
 
-		setTimeLeftMs(prev => {
-			const newTime = Math.max(0, prev - delta);
-
-			// Управление звуком ticking
-			if (newTime <= 4000 && newTime > 0) {
-				if (!soundsRef.current.ticking?.playing()) {
+				// Запускаем тиканье за 4 секунды до конца
+				if (next === 4000) {
 					playSound('ticking');
 				}
-			} else {
-				stopSound('ticking');
+
+				if (next <= 0) {
+					window.clearInterval(intervalRef.current!);
+					stopSound('ticking'); // Останавливаем тиканье при завершении этапа
+					return 0;
+				}
+
+				return next;
+			});
+		}, 1000);
+	};
+
+	const handleStartPause = () => {
+		if (!isActive) {
+			handleStart();
+		} else if (isPaused) {
+			setIsPaused(false);
+			// Возобновляем тиканье, если оно должно играть
+			if (timeLeft <= 4000 && timeLeft > 0) {
+				resumeSound('ticking');
 			}
-
-			// Переход на следующий этап при завершении времени
-			if (newTime <= 0) {
-				handleStageComplete();
-				return 0;
-			}
-
-			return newTime;
-		});
-
-		if (timeLeftMs > 0) {
-			animationRef.current = requestAnimationFrame(animate);
+			startTimer(timeLeft);
+		} else {
+			if (intervalRef.current) window.clearInterval(intervalRef.current);
+			// Ставим на паузу тиканье
+			pauseSound('ticking');
+			setIsPaused(true);
 		}
 	};
 
-	const handleStageComplete = () => {
+	const handleStart = () => {
 		if (!workout) return;
+		const ms = stage === 'warmup' ? workout.warmupTime * 1000
+			: stage === 'exercise' ? workout.exerciseTime * 1000
+				: stage === 'rest' ? workout.restTime * 1000
+					: stage === 'restBetweenRounds' ? workout.restBetweenRounds * 1000 : 0;
+		startTimer(ms);
+		setIsActive(true);
+	};
 
-		stopSound('ticking');
+	useEffect(() => {
+		if (!isActive || !workout) return;
+		if (timeLeft > 0) return;
 
 		if (stage === 'warmup') {
 			setStage('exercise');
-			setTimeLeftMs(workout.exerciseTime * 1000);
+			startTimer(workout.exerciseTime * 1000);
 			playSound('whistle');
 		} else if (stage === 'exercise') {
 			if (currentExerciseIndex < workout.exercises.length - 1) {
 				setStage('rest');
 				setNextExercise(workout.exercises[currentExerciseIndex + 1]?.name || '');
-				setTimeLeftMs(workout.restTime * 1000);
+				startTimer(workout.restTime * 1000);
 				playSound('gong');
 			} else if (roundIndex < workout.rounds - 1) {
 				setStage('restBetweenRounds');
 				setNextExercise(workout.exercises[0]?.name || '');
-				setTimeLeftMs(workout.restBetweenRounds * 1000);
+				startTimer(workout.restBetweenRounds * 1000);
 				playSound('gong');
 			} else {
 				setStage('complete');
@@ -182,77 +199,25 @@ const TrainWorkout = () => {
 		} else if (stage === 'rest') {
 			setStage('exercise');
 			setCurrentExerciseIndex(i => i + 1);
-			setTimeLeftMs(workout.exerciseTime * 1000);
+			startTimer(workout.exerciseTime * 1000);
 			playSound('whistle');
 		} else if (stage === 'restBetweenRounds') {
 			setStage('exercise');
 			setCurrentExerciseIndex(0);
 			setRoundIndex(r => r + 1);
 			setNextExercise(workout.exercises[1]?.name || '');
-			setTimeLeftMs(workout.exerciseTime * 1000);
+			startTimer(workout.exerciseTime * 1000);
 			playSound('whistle');
 		} else if (stage === 'complete') {
 			nav('/workouts');
 		}
-	};
+	}, [timeLeft, isActive, stage, workout, currentExerciseIndex, roundIndex, nav]);
 
-	const startTimer = (durationMs: number) => {
-		if (animationRef.current) {
-			cancelAnimationFrame(animationRef.current);
-		}
-
-		setTimeLeftMs(durationMs);
-		lastUpdateTimeRef.current = 0;
-
-		if (durationMs > 0) {
-			animationRef.current = requestAnimationFrame(animate);
-		}
-	};
-
-	const handleStartPause = () => {
-		if (!isActive) {
-			handleStart();
-		} else if (isPaused) {
-			// Возобновление
-			setIsPaused(false);
-			lastUpdateTimeRef.current = 0;
-
-			// Возобновляем звук ticking если нужно
-			if (timeLeftMs <= 4000 && timeLeftMs > 0) {
-				resumeSound('ticking');
-			}
-
-			animationRef.current = requestAnimationFrame(animate);
-		} else {
-			// Пауза
-			if (animationRef.current) {
-				cancelAnimationFrame(animationRef.current);
-				animationRef.current = null;
-			}
-
-			pauseSound('ticking');
-			setIsPaused(true);
-		}
-	};
-
-	const handleStart = () => {
-		if (!workout) return;
-
-		const durationMs = stage === 'warmup' ? workout.warmupTime * 1000 :
-			stage === 'exercise' ? workout.exerciseTime * 1000 :
-				stage === 'rest' ? workout.restTime * 1000 :
-					stage === 'restBetweenRounds' ? workout.restBetweenRounds * 1000 : 0;
-
-		startTimer(durationMs);
-		setIsActive(true);
-		setIsPaused(false);
-	};
-
-	// Очистка при размонтировании
+	// Очистка при размонтировании компонента (выход из тренировки)
 	useEffect(() => {
 		return () => {
-			if (animationRef.current) {
-				cancelAnimationFrame(animationRef.current);
+			if (intervalRef.current) {
+				window.clearInterval(intervalRef.current);
 			}
 			// Останавливаем все звуки при выходе
 			Object.values(soundsRef.current).forEach(sound => {
@@ -265,10 +230,8 @@ const TrainWorkout = () => {
 
 	if (!workout) return <p>Loading...</p>;
 
-	// Форматирование времени для отображения
-	const mm = String(Math.floor(timeLeftMs / 60000)).padStart(2, '0');
-	const ss = String(Math.floor((timeLeftMs % 60000) / 1000)).padStart(2, '0');
-	const ms = String(Math.floor(timeLeftMs % 1000)).padStart(3, '0').slice(0, 2); // 1 цифра миллисекунд
+	const mm = String(Math.floor(timeLeft / 60000)).padStart(2, '0');
+	const ss = String(Math.floor((timeLeft % 60000) / 1000)).padStart(2, '0');
 
 	const getStageColor = () => {
 		switch (stage) {
@@ -279,37 +242,44 @@ const TrainWorkout = () => {
 			case 'complete': return 'var(--danger)';
 			default: return 'var(--text-light)';
 		}
-	};
+	}
 
 	return (
-		<div className="card" style={{display: 'grid', justifyItems: 'center'}}>
-			<div style={{color: 'var(--text-light)', fontSize: '1.5rem', fontWeight: 'bold'}}>
-				{workout.name}
+		<div
+			className="card"
+			style={{display: 'grid', justifyItems: 'center'}}
+		>
+			<div
+				style={{color: 'var(--text-light)', fontSize: '1.5rem', fontWeight: 'bold'}}
+			>{workout.name}
 			</div>
-
-			<div className="stage-label" style={{color: getStageColor()}}>
+			<div className="stage-label" style={{color: getStageColor()}} >
 				{stageLabel}
 			</div>
-
-			<div style={{color: getStageColor()}} className="timer-display">
-				{mm}:{ss}.{ms}
+			<div
+				style={{color: getStageColor()}}
+				className="timer-display"
+			>
+				{mm}:{ss}
 			</div>
-
 			<button className="btn primary" onClick={handleStartPause}>
-				{!isActive ? <Play fill='var(--surface)'/> :
-					isPaused ? <Play fill='var(--surface)'/> :
-						<Pause fill='var(--surface)'/>}
+				{!isActive
+					? <Play fill='var(--surface)'/>
+					: isPaused
+						? <Play fill='var(--surface)'/>
+						: <Pause fill='var(--surface)'/>
+				}
 			</button>
-
 			<div style={{color: 'var(--text-light)', fontSize: '2.5rem', fontWeight: 'bold'}}>
 				{(stage === 'rest' || stage === 'restBetweenRounds' || stage === 'warmup')
 					? `${t('timer.next')}: ${nextExercise}`
 					: stage === 'complete'
 						? t('timer.wellDone')
-						: t('timer.justDoIt')}
+						: t('timer.justDoIt')
+				}
 			</div>
 		</div>
 	);
-};
+}
 
 export default TrainWorkout;
