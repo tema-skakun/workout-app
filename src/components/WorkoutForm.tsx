@@ -92,161 +92,183 @@ export const WorkoutForm: React.FC<WorkoutFormProps> = ({
 					{error}
 				</div>
 			)}
+			<div
+				className="wf"
+				style={{
+					display: 'flex',
+					flexDirection: 'column',
+					minHeight: 0,
+					height: '100%',
+				}}
+			>
+				<div
+					className="wf__content"
+					style={{
+						flex: 1,
+						minHeight: 0,
+						overflowY: 'auto',
+						padding: 4,
+						WebkitOverflowScrolling: 'touch',
+					}}
+				>
+					{activeTab === 0 && (
+						<div style={{flex: 1}}>
+							<div style={{marginBottom: '12px'}}>
+								<input
+									autoFocus
+									className="input small"
+									name="name"
+									value={form.name}
+									onChange={handleChange}
+									placeholder={t('workouts.name')!}
+									maxLength={20}
+									style={{
+										borderColor: !form.name.trim() ? 'var(--danger)' : undefined,
+										borderWidth: !form.name.trim() ? '2px' : undefined,
+										height: '40px'
+									}}
+								/>
+							</div>
 
-			<div style={{
-				minHeight: '400px',
-				display: 'flex',
-				flexDirection: 'column'
-			}}>
-				{activeTab === 0 && (
-					<div style={{flex: 1}}>
-						<div style={{marginBottom: '12px'}}>
-							<input
-								autoFocus
-								className="input small"
-								name="name"
-								value={form.name}
+							<TimeInput
+								labelKey="fields.warmupTime"
+								name="warmupTime"
+								value={form.warmupTime}
+								min={5}
+								max={3600}
 								onChange={handleChange}
-								placeholder={t('workouts.name')!}
-								maxLength={20}
-								style={{
-									borderColor: !form.name.trim() ? 'var(--danger)' : undefined,
-									borderWidth: !form.name.trim() ? '2px' : undefined,
-									height: '40px'
-								}}
+								hasError={form.warmupTime < 5 || form.warmupTime > 3600}
+							/>
+							<TimeInput
+								labelKey="fields.exerciseTime"
+								name="exerciseTime"
+								value={form.exerciseTime}
+								min={5}
+								max={3600}
+								onChange={handleChange}
+								hasError={form.exerciseTime < 5 || form.exerciseTime > 3600}
+							/>
+							<TimeInput
+								labelKey="fields.restTime"
+								name="restTime"
+								value={form.restTime}
+								min={5}
+								max={3600}
+								onChange={handleChange}
+								hasError={form.restTime < 5 || form.restTime > 3600}
+							/>
+							<TimeInput
+								labelKey="fields.rounds"
+								name="rounds"
+								value={form.rounds}
+								min={1}
+								max={999}
+								onChange={handleChange}
+								hasError={form.rounds < 1 || form.rounds > 999}
+								unit="pieces"
+							/>
+							<TimeInput
+								labelKey="fields.restBetweenRounds"
+								name="restBetweenRounds"
+								value={form.restBetweenRounds}
+								min={5}
+								max={3600}
+								onChange={handleChange}
+								hasError={form.restBetweenRounds < 5 || form.restBetweenRounds > 3600}
 							/>
 						</div>
-
-						<TimeInput
-							labelKey="fields.warmupTime"
-							name="warmupTime"
-							value={form.warmupTime}
-							min={5}
-							max={3600}
-							onChange={handleChange}
-							hasError={form.warmupTime < 5 || form.warmupTime > 3600}
-						/>
-						<TimeInput
-							labelKey="fields.exerciseTime"
-							name="exerciseTime"
-							value={form.exerciseTime}
-							min={5}
-							max={3600}
-							onChange={handleChange}
-							hasError={form.exerciseTime < 5 || form.exerciseTime > 3600}
-						/>
-						<TimeInput
-							labelKey="fields.restTime"
-							name="restTime"
-							value={form.restTime}
-							min={5}
-							max={3600}
-							onChange={handleChange}
-							hasError={form.restTime < 5 || form.restTime > 3600}
-						/>
-						<TimeInput
-							labelKey="fields.rounds"
-							name="rounds"
-							value={form.rounds}
-							min={1}
-							max={999}
-							onChange={handleChange}
-							hasError={form.rounds < 1 || form.rounds > 999}
-							unit="pieces"
-						/>
-						<TimeInput
-							labelKey="fields.restBetweenRounds"
-							name="restBetweenRounds"
-							value={form.restBetweenRounds}
-							min={5}
-							max={3600}
-							onChange={handleChange}
-							hasError={form.restBetweenRounds < 5 || form.restBetweenRounds > 3600}
-						/>
-					</div>
-				)}
-
-				{activeTab === 1 && (
-					<div style={{
-						flex: 1,
-						display: 'flex',
-						flexDirection: 'column',
-						maxHeight: '60vh',
-						overflow: 'hidden'
-					}}>
+					)}
+					{activeTab === 1 && (
 						<div style={{
 							flex: 1,
-							overflowY: 'auto',
-							paddingRight: '8px',
-							marginBottom: '16px'
+							display: 'flex',
+							flexDirection: 'column',
+							// maxHeight: '60vh',
+							// overflow: 'hidden'
 						}}>
-							<ExerciseInputsWithDelete
-								exercises={form.exercises}
-								onChange={handleExerciseChange}
-								onAdd={addExercise}
-								onRemove={removeExercise}
-							/>
+							<div style={{
+								flex: 1,
+								overflowY: 'auto',
+								paddingRight: '8px',
+								marginBottom: '16px'
+							}}>
+								<ExerciseInputsWithDelete
+									exercises={form.exercises}
+									onChange={handleExerciseChange}
+									onAdd={addExercise}
+									onRemove={removeExercise}
+								/>
+							</div>
 						</div>
-					</div>
-				)}
-			</div>
-
-			<div style={{
-				display: 'flex',
-				gap: '10px',
-				marginTop: '20px',
-				paddingTop: '16px',
-				borderTop: '1px solid rgba(0,0,0,0.1)'
-			}}>
-				{activeTab === 0 ? (
-					<>
-						<button
-							className="btn small"
-							onClick={onCancel}
-							style={{flex: 1, height: '38px'}}
-							disabled={isLoading}
-						>
-							{t('common.cancel', 'Отмена')}
-						</button>
-						<button
-							className={`btn small primary ${!isFirstTabValid() ? 'disabled' : ''}`}
-							onClick={handleNext}
-							disabled={!isFirstTabValid() || isLoading}
-							style={{
-								flex: 1,
-								height: '38px',
-								opacity: (!isFirstTabValid() || isLoading) ? 0.5 : 1,
-								cursor: (!isFirstTabValid() || isLoading) ? 'not-allowed' : 'pointer'
-							}}
-						>
-							{t('common.next')}
-						</button>
-					</>
-				) : (
-					<>
-						<button
-							className="btn small"
-							onClick={handleBack}
-							style={{flex: 1, height: '38px'}}
-							disabled={isLoading}
-						>
-							{t('common.back')}
-						</button>
-						<button
-							className={`btn small primary ${!isSecondTabValid() ? 'disabled' : ''}`}
-							onClick={handleSubmit}
-							disabled={!isSecondTabValid() || isLoading}
-							style={{
-								flex: 1,
-								height: '38px',
-								opacity: (!isSecondTabValid() || isLoading) ? 0.5 : 1,
-								cursor: (!isSecondTabValid() || isLoading) ? 'not-allowed' : 'pointer'
-							}}
-						>
-							{isLoading ? '...' : submitButtonText}
-						</button>
-					</>
-				)}
+					)}
+				</div>
+				<div
+					className="wf__actions"
+					style={{
+						position: 'sticky',
+						bottom: 0,
+						display: 'flex',
+						gap: 10,
+						paddingTop: 16,
+						paddingBottom: 12,
+						marginTop: 12,
+						borderTop: '1px solid rgba(0,0,0,0.1)',
+						background: 'var(--surface)', /* чтобы не было “прозрачного” хвоста */
+						borderBottomLeftRadius: 'var(--border-radius)',
+						borderBottomRightRadius: 'var(--border-radius)',
+						zIndex: 1,
+					}}
+				>
+					{activeTab === 0 ? (
+						<>
+							<button
+								className="btn small"
+								onClick={onCancel}
+								style={{flex: 1, height: '38px'}}
+								disabled={isLoading}
+							>
+								{t('common.cancel', 'Отмена')}
+							</button>
+							<button
+								className={`btn small primary ${!isFirstTabValid() ? 'disabled' : ''}`}
+								onClick={handleNext}
+								disabled={!isFirstTabValid() || isLoading}
+								style={{
+									flex: 1,
+									height: '38px',
+									opacity: (!isFirstTabValid() || isLoading) ? 0.5 : 1,
+									cursor: (!isFirstTabValid() || isLoading) ? 'not-allowed' : 'pointer'
+								}}
+							>
+								{t('common.next')}
+							</button>
+						</>
+					) : (
+						<>
+							<button
+								className="btn small"
+								onClick={handleBack}
+								style={{flex: 1, height: '38px'}}
+								disabled={isLoading}
+							>
+								{t('common.back')}
+							</button>
+							<button
+								className={`btn small primary ${!isSecondTabValid() ? 'disabled' : ''}`}
+								onClick={handleSubmit}
+								disabled={!isSecondTabValid() || isLoading}
+								style={{
+									flex: 1,
+									height: '38px',
+									opacity: (!isSecondTabValid() || isLoading) ? 0.5 : 1,
+									cursor: (!isSecondTabValid() || isLoading) ? 'not-allowed' : 'pointer'
+								}}
+							>
+								{isLoading ? '...' : submitButtonText}
+							</button>
+						</>
+					)}
+				</div>
 			</div>
 		</div>
 	);

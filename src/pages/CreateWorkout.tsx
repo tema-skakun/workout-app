@@ -26,7 +26,7 @@ const CreateWorkout = () => {
 	};
 
 	return (
-		<div style={{maxWidth: '480px', margin: '0 auto'}}>
+		<div style={{maxWidth: '480px', margin: '0 auto'}} className="card">
 			<div style={{display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px'}}>
 				<button
 					className="btn"

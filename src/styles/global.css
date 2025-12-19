@@ -21,16 +21,19 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+    overflow: hidden;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     background-color: var(--bg);
     color: var(--text);
 }
 
 #root {
+    height: 100dvh;
     min-height: 100dvh;
     min-width: 100dvw;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 
 /* Неоморфные кнопки */
@@ -125,15 +128,18 @@ footer {
 }
 
 @media (max-height: 900px) {
-  .footer {
-    display: none;
-  }
+    .footer {
+        display: none;
+    }
 }
 
 /* Основной контент */
 main {
     flex: 1;
+    min-height: 0;
+    overflow: auto;
     padding: 16px;
+    -webkit-overflow-scrolling: touch;
     /*max-width: 400px;*/
     /*margin: 0 auto;*/
     width: 100%;
@@ -199,29 +205,29 @@ main {
 }
 
 .app-title {
-  margin: 0;
-  color: black;
+    margin: 0;
+    color: black;
 }
 
 @media (max-width: 450px) {
-  .app-title {
-    display: none;
-  }
+    .app-title {
+        display: none;
+    }
 }
 
 /* Маленькие инпуты для форм ввода */
 .input.small {
-  height: 28px;
-  padding: 0 12px;
-  font-size: 14px;
-  border-radius: 12px;
+    height: 28px;
+    padding: 0 12px;
+    font-size: 14px;
+    border-radius: 12px;
 }
 
 /* Маленькие кнопки */
 .btn.small {
-  height: 32px;
-  padding: 6px 12px;
-  font-size: 13px;
-  border-radius: 10px;
-  min-width: auto;
+    height: 32px;
+    padding: 6px 12px;
+    font-size: 13px;
+    border-radius: 10px;
+    min-width: auto;
 }
